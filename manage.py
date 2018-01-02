@@ -2,6 +2,11 @@
 import os
 import sys
 
+from dotenv import load_dotenv
+
+dotenv_path = join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "adaFamilyTree.settings")
     try:

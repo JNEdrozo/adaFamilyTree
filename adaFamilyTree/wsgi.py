@@ -9,6 +9,11 @@ https://docs.djangoproject.com/en/2.0/howto/deployment/wsgi/
 
 import os
 
+from dotenv import load_dotenv
+
+dotenv_path = join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "adaFamilyTree.settings")

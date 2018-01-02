@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+from dotenv import load_dotenv
+
+dotenv_path = join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -77,6 +83,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'adafamilytreedb',
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
