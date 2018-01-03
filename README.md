@@ -1,4 +1,4 @@
-## Capstone Overview:
+## Capstone Overview
 This app will provide an Ada family tree to help us not only keep track of teachers and their cohort of students, but also visually map the growth of the Ada student network. Clicking on members of the tree will provide basic information (e.g. name, cohort, linkedIn, and optional capstone information). This app may be used by anyone in the Ada family who would like to connect or learn more about their fellow Adies.
 
 ## Product Plan
