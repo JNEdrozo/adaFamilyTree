@@ -5,10 +5,11 @@ This app will provide an Ada family tree to help us not only keep track of teach
 Product Plan: https://gist.github.com/JNEdrozo/84d61f563256436c853303e4172af2e9
 
 ## Project User Stories
-Target User: The webapp is intended for current or former Ada students or staff who would like to see where they are in the Ada family social network expansion.
+Target User: The web app is intended for current or former Ada students or staff who would like to see where they are in the Ada family social network expansion.
 
 **Public/Unauthenticated Users:**
-As an non-logged-in user, I can:
+
+As a non-logged-in user, I can:
 - log in as an existing user or,
 - create a profile account to add to the existing Ada family tree using required info:
   - first name
@@ -19,6 +20,7 @@ As an non-logged-in user, I can:
   - Optional to include: Ada Internship Company, LinkedIn, Capstone Info, ADA/Life-Hacking Tips or mottos to live by
 
 **Authenticated Users:**
+
 As a logged-in user, I can:
 - log in and view the entire Ada family tree
 - edit my own profile info
