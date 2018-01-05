@@ -14,7 +14,7 @@ import os
 
 from dotenv import load_dotenv
 
-dotenv_path = join(os.path.dirname(__file__), '.env')
+dotenv_path = str.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 
