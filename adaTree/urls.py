@@ -1,4 +1,4 @@
-from django.urls import dotenv_path
+from django.urls import path
 
 from . import views
 
