@@ -31,10 +31,17 @@ from django.contrib.auth.models import User
 # Create your models here.
 class CohortClasses(models.Model):
     cohort_name = models.CharField(max_length=200, blank=False)
+    description = models.TextField(max_length=500,blank=True)
 
 class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    program = models.CharField(max_length=20, blank=False)
+
+    first_name = models.CharField(max_length=100, blank=False)
+
+    last_name = models.CharField(max_length=100, blank=False)
 
     ada_relation = models.CharField(max_length=20, blank=False)
 
