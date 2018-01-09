@@ -36,30 +36,53 @@ class Cohort(models.Model):
 
 class Profile(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE) #Use so new users can add their own profiles
 
-    program = models.CharField(max_length=20, blank=False)
+    program = models.CharField(max_length=100, blank=False)
 
     first_name = models.CharField(max_length=100, blank=False)
 
     last_name = models.CharField(max_length=100, blank=False)
 
-    ada_relation = models.CharField(max_length=20, blank=False)
+    ada_relation = models.CharField(max_length=100, blank=False)
 
-    pronouns = models.CharField(max_length=50, blank=False)
-    
-    cohort_served = models.ManyToManyField(Cohort) #https://stackoverflow.com/questions/2726476/django-multiple-choice-field-checkbox-select-multiple/4033308
+    pronouns = models.CharField(max_length=100, blank=False)
 
-    github_username = models.CharField(max_length=50, blank=False)
+    #cohort_served = models.ManyToManyField(Cohort) #If staff & students were creating profiles as general non-admin users: https://stackoverflow.com/questions/2726476/django-multiple-choice-field-checkbox-select-multiple/4033308
 
-    internship_placement = models.CharField(max_length=200, blank=True)
+    cohort_served = models.CharField(max_length=100, blank=False)
 
-    linkedinURL = models.CharField(max_length=200, blank=True)
+    github_username = models.CharField(max_length=100, blank=False)
+
+    internship_placement = models.TextField(max_length=500, blank=True)
+
+    linkedin = models.CharField(max_length=200, blank=True)
 
     capstone_info = models.TextField(max_length=500,blank=True)
 
     email = models.CharField(max_length=200, blank=True)
-#
-# class Cohort(models.Model):
-#     cohort_name = models.CharField(max_length=200, blank=False)
-#     description = models.TextField(max_length=500,blank=True)
+    
+
+class OptInProfile(models.Model):
+
+    program = models.CharField(max_length=100, blank=False)
+
+    first_name = models.CharField(max_length=100, blank=False)
+
+    last_name = models.CharField(max_length=100, blank=False)
+
+    ada_relation = models.CharField(max_length=100, blank=False)
+
+    pronouns = models.CharField(max_length=100, blank=False)
+
+    cohort_served = models.CharField(max_length=100, blank=False)
+
+    github_username = models.CharField(max_length=100, blank=False)
+
+    internship_placement = models.TextField(max_length=500, blank=True)
+
+    linkedin = models.CharField(max_length=200, blank=True)
+
+    capstone_info = models.TextField(max_length=500,blank=True)
+
+    email = models.CharField(max_length=200, blank=True)
