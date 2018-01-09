@@ -29,9 +29,10 @@ from django.contrib.auth.models import User
 # )
 
 # Create your models here.
-class CohortClasses(models.Model):
+class Cohort(models.Model):
     cohort_name = models.CharField(max_length=200, blank=False)
     description = models.TextField(max_length=500,blank=True)
+
 
 class Profile(models.Model):
 
@@ -46,8 +47,8 @@ class Profile(models.Model):
     ada_relation = models.CharField(max_length=20, blank=False)
 
     pronouns = models.CharField(max_length=50, blank=False)
-
-    cohort_served = models.ManyToManyField(CohortClasses) #https://stackoverflow.com/questions/2726476/django-multiple-choice-field-checkbox-select-multiple/4033308
+    
+    cohort_served = models.ManyToManyField(Cohort) #https://stackoverflow.com/questions/2726476/django-multiple-choice-field-checkbox-select-multiple/4033308
 
     github_username = models.CharField(max_length=50, blank=False)
 
@@ -58,3 +59,7 @@ class Profile(models.Model):
     capstone_info = models.TextField(max_length=500,blank=True)
 
     email = models.CharField(max_length=200, blank=True)
+#
+# class Cohort(models.Model):
+#     cohort_name = models.CharField(max_length=200, blank=False)
+#     description = models.TextField(max_length=500,blank=True)
