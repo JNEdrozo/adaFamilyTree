@@ -1,0 +1,7 @@
+<h1>Welcome to the Ada Family Tree</h1>
+
+<ul>
+{% for profile in profiles.all %}
+    <li>{{ profile.first_name }}</li>
+{% endfor %}
+</ul>
