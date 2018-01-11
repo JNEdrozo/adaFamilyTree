@@ -10,6 +10,7 @@ from django.views import generic
 from django.views.generic import TemplateView
 
 from .models import OptInProfile
+from .models import Cohort
 
 from django.core import serializers
 import json
@@ -39,17 +40,45 @@ def index(request):
 
     template = loader.get_template('adaTree/index.html')
 
-    nodes = OptInProfile.objects.all()
+    profiles = OptInProfile.objects.all()
+    cohorts = Cohort.objects.all()
+
+    nodes = []
     links = []
 
-    for node in nodes:
-        links.append({"source": node.pk, "target": node.cohort_served, "value": 1})
+    for profile in profiles:
+        # Node data for D3
+        nodes.append({
+            "id": profile.pk,
+            "program": profile.program,
+            "full_name": profile.first_name + ' ' + profile.last_name,
+            "relation": profile.ada_relation,
+            "pronouns": profile.pronouns,
+            "cohort": profile.cohort_served,
+            "internship": profile.internship_placement,
+            "linkedin": profile.linkedin,
+            "capstone": profile.capstone_info
+        })
+        # Link data for D3
+        links.append({
+            "source": profile.pk,
+            "target": profile.cohort_served,
+            # "target": {"id": profile.cohort_served},
+            "value": 2})
 
-    serialized_nodes = serializers.serialize('json', nodes)
+    for cohort in cohorts:
+        nodes.append({
+            "id": cohort.cohort_name,
+            "full_name": cohort.cohort_name,
+            "cohort": cohort.cohort_name
+        })
+
+    # serialized_nodes = serializers.serialize('json', nodes)
     # serialized_links = serializers.serialize('json', links)
 
     data = {
-     "nodes": serialized_nodes,
+     # "nodes": serialized_nodes,
+     "nodes": nodes,
      "links": links
     }
 
