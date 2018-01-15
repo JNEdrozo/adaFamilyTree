@@ -78,13 +78,25 @@ WSGI_APPLICATION = 'adaFamilyTree.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# LOCAL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'adafamilytreedb',
+#         'USER': os.environ.get("DB_USER"),
+#         'PASSWORD': os.environ.get("DB_PASSWORD"),
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'adafamilytreedb',
+        'NAME': 'de4kq3tkm3f6c7',
         'USER': os.environ.get("DB_USER"),
         'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': '127.0.0.1',
+        'HOST': 'ec2-54-221-251-195.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
