@@ -1,3 +1,9 @@
 h1 {
-    color: #FCA205;
+  font-family: 'Ubuntu', sans-serif;
+  /* color: #FCA205; */
+  color: #627C85;
+  text-align: left;
+  font-size: 2.5em;
+  padding-left: 20px;
+  padding-top: 20px;
 }

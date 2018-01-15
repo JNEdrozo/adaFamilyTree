@@ -1,0 +1,8 @@
+click==6.7
+Django==2.0.1
+django-bootstrap3==9.1.0
+django-multiselectfield==0.1.8
+postgres==2.2.1
+psycopg2==2.7.3.2
+python-dotenv==0.7.1
+pytz==2017.3

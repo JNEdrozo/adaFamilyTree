@@ -1,6 +1,6 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 <h1>Welcome to the Ada Family Tree</h1>
 
 <!-- TEST -->
@@ -47,64 +47,115 @@
 
 <script>
 
-var studentData = JSON.parse("{{json|escapejs}}");
-
-console.log(studentData);
-
+//create somewhere to put the force directed graph
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
+var radius = 15;
+
+var studentData = JSON.parse("{{json|escapejs}}");
+
+//check that studentData is in correct format
+console.log(studentData);
+
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
+//NORMAL set up the simulation and add forces
 var simulation = d3.forceSimulation(studentData.nodes)
     .force("link", d3.forceLink().id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
 
+//ZOOM set up the simulation and add forces
+// var simulation = d3.forceSimulation()
+// 					.nodes(studentData.nodes);
+//
+// var link_force =  d3.forceLink(studentData.links)
+//                         .id(function(d) { return d.id; });
+//
+// var charge_force = d3.forceManyBody()
+//     .strength(-100);
+//
+// var center_force = d3.forceCenter(width / 2, height / 2);
+//
+// simulation
+//     .force("charge_force", charge_force)
+//     .force("center_force", center_force)
+//     .force("links",link_force)
+//  ;
+
 // d3.json('{% static "adaTree/testgraph.json" %}', function(error, graph) {
 //   if (error) throw error;
 
+  //draw lines for the links
   var link = svg.append("g")
       .attr("class", "links")
     .selectAll("line")
     .data(studentData.links)
     .enter().append("line")
       .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+      //ZOOM style
+      //.style("stroke", linkColour);
 
+  //draw circles for the nodes
   var node = svg.append("g")
       .attr("class", "nodes")
     .selectAll("circle")
     .data(studentData.nodes)
-    .enter().append("circle")
-      .attr("r", 6)
+    .enter()
+    .append("circle")
+      .attr("r", 7)
       .attr("fill", function(d) { return color('d.cohort'); })
-      .call(d3.drag()
-          .on("start", dragstarted)
-          .on("drag", dragged)
-          .on("end", dragended));
+      .attr("fill", circleColour);
+
+      //NORMAL DRAG CALL
+      // .call(d3.drag()
+      //     .on("start", dragstarted)
+      //     .on("drag", dragged)
+      //     .on("end", dragended));
+
+      //add drag capabilities
+      var drag_handler = d3.drag()
+      	.on("start", drag_start)
+      	.on("drag", drag_drag)
+      	.on("end", drag_end);
+
+      drag_handler(node);
+
 
   node.append("title")
-      .text(function(d) { return d.full_name; });
+      .text(function(d) {
+        return d.full_name; })
+      // .text(function(d) { return d.pronouns; });
+
+  //NORMAL simulation
+  //   .nodes(studentData.nodes)
+  //   .on("tick", ticked);
+
+  //ZOOM add tick instructions:
+  simulation.on("tick", tickActions );
+
+  //ZOOM add encompassing group for the zoom
+  var g = svg.append("g")
+    .attr("class", "everything");
 
   simulation
-      .nodes(studentData.nodes)
-      .on("tick", ticked);
-
-  simulation.force("link")
+    .force("link")
     .links(studentData.links);
 
-  function ticked() {
-    link
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-  }
+  //NORMAL tick function
+  // function ticked() {
+  //   link
+  //       .attr("x1", function(d) { return d.source.x; })
+  //       .attr("y1", function(d) { return d.source.y; })
+  //       .attr("x2", function(d) { return d.target.x; })
+  //       .attr("y2", function(d) { return d.target.y; });
+  //
+  //   node
+  //       .attr("cx", function(d) { return d.x; })
+  //       .attr("cy", function(d) { return d.y; });
+  // }
 // });
 
 // d3.json('{% static "adaTree/testgraph.json" %}', function(error, graph) {
@@ -152,10 +203,23 @@ var simulation = d3.forceSimulation(studentData.nodes)
 //   }
 // });
 
+//add zoom capabilities
+var zoom_handler = d3.zoom()
+    .on("zoom", zoom_actions);
+
+zoom_handler(svg);
+
+//Zoom functions
+function zoom_actions(){
+    g.attr("transform", d3.event.transform)
+}
+
+/** NORMAL Functions **/
 function dragstarted(d) {
   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
   d.fx = d.x;
   d.fy = d.y;
+  console.log(d3.event.subject);
 }
 
 function dragged(d) {
@@ -165,8 +229,51 @@ function dragged(d) {
 
 function dragended(d) {
   if (!d3.event.active) simulation.alphaTarget(0);
+  //Comment below to make the nodes sticky
+  // d.fx = null;
+  // d.fy = null;
+}
+
+// ZOOM Tick Function
+function tickActions() {
+    //update circle positions each tick of the simulation
+       node
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+
+    //update link positions
+    link
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+}
+
+//ZOOM Drag functions WHERE d is the node
+function drag_start(d) {
+ if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+}
+
+//make sure you can't drag the circle outside the box
+function drag_drag(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function drag_end(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
   d.fx = null;
   d.fy = null;
 }
 
+//Function to choose what color circle we have
+function circleColour(d){
+	if(d.type =="cohort"){
+		return "blue";
+	} else {
+		return "pink";
+	}
+}
 </script>

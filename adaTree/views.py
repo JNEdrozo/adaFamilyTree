@@ -44,6 +44,7 @@ def index(request):
     cohorts = Cohort.objects.all()
 
     nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy"}]
+    # nodes = []
     links = []
 
     for profile in profiles:
@@ -57,27 +58,29 @@ def index(request):
             "cohort": profile.cohort_served,
             "internship": profile.internship_placement,
             "linkedin": profile.linkedin,
-            "capstone": profile.capstone_info
+            "capstone": profile.capstone_info,
+            "type": 'student',
         })
         # Link data for D3
         links.append({
             "source": profile.pk,
             "target": profile.cohort_served,
             # "target": {"id": profile.cohort_served},
-            "value": 2
+            "value": 2,
         })
 
     for cohort in cohorts:
         nodes.append({
             "id": cohort.cohort_name,
             "full_name": cohort.cohort_name,
-            "cohort": cohort.cohort_name
+            "cohort": cohort.cohort_name,
+            "type": 'cohort',
         })
         links.append({
             "source": cohort.cohort_name,
             "target": "Ada Developers Academy",
             # "target": {"id": profile.cohort_served},
-            "value": 3
+            "value": 4,
         })
 
     # serialized_nodes = serializers.serialize('json', nodes)
@@ -103,3 +106,10 @@ def index(request):
     }
 
     return render(request, 'adaTree/index.html', context)
+
+
+def adaTree(request):
+
+    template = loader.get_template('adaTree/adaTree.html')
+
+    return render(request, 'adaTree/adaTree.html')
