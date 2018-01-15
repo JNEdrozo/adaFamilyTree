@@ -4,7 +4,7 @@ import sys
 
 from dotenv import load_dotenv
 
-dotenv_path = str.join(os.path.dirname(__file__), '.env')
+dotenv_path = os.path.join(os.path.dirname(__file__), 'adaFamilyTree', '.env')
 load_dotenv(dotenv_path)
 
 if __name__ == "__main__":
