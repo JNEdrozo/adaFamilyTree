@@ -1,279 +1,124 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-<h1>Welcome to the Ada Family Tree</h1>
-
-<!-- TEST -->
-
-<!-- {{ profiles }} -->
-
-<!-- FOR GENERIC TEMPLATE -->
-<!-- <ul>
-{% for profile in object_list %}
-    <li>{{ profile.first_name }}</li>
-{% endfor %}
-</ul> -->
-
-<!-- FOR GENERAL INDEX NAMES LIST -->
-<!-- <ul>
-{% for profile in profiles %}
-    <li>{{ profile.first_name }}</li>
-{% endfor %}
-</ul> -->
-
-<!-- END TEST -->
 
 
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ada Family Tree Home</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
 
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
-}
+  <style>
+  .links line {
+    stroke: #999;
+    stroke-opacity: 0.6;
+  }
+  .nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+  }
+  </style>
 
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
+  <body>
+    <h1>Welcome to the Ada Family Tree</h1>
+    <svg width="900" height="700"></svg>
 
-</style>
+    <script>
+    var studentData = JSON.parse("{{json|escapejs}}");
+    //check that studentData is in correct format
+    console.log(studentData);
 
+    //create somewhere to put the force directed graph
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
 
-<svg width="1000" height="700"></svg>
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
+    var simulation = d3.forceSimulation(studentData.nodes)
+        .force("link", d3.forceLink().id(function(d) { return d.id; }))
+        .force("charge", d3.forceManyBody())
+        .force("center", d3.forceCenter(width / 2, height / 2));
 
-<script>
+    // d3.json('{% static "adaTree/testgraph.json" %}', function(error, graph) {
+    //   if (error) throw error;
 
-//create somewhere to put the force directed graph
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+      //DRAW LINES
+      var link = svg.append("g")
+          .attr("class", "links")
+        .selectAll("line")
+        .data(studentData.links)
+        .enter().append("line")
+          .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
 
-var radius = 15;
+      //DRAW CIRCLES
+      var node = svg.append("g")
+          .attr("class", "nodes")
+        .selectAll("circle")
+        .data(studentData.nodes)
+        .enter()
+        .append("circle")
+          .attr("r", 6)
+          .attr("fill", function(d) { return color('d.cohort'); })
+          .attr("fill", circleColour)
+          //DRAG FUNCTION CALLS
+          .call(d3.drag()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended));
 
-var studentData = JSON.parse("{{json|escapejs}}");
+      node.append("title")
+          .text(function(d) { return d.full_name; });
 
-//check that studentData is in correct format
-console.log(studentData);
+      simulation
+          .nodes(studentData.nodes)
+          .on("tick", ticked);
+      simulation
+          .force("link")
+          .links(studentData.links);
 
-var color = d3.scaleOrdinal(d3.schemeCategory20);
+      function ticked() {
+        link
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+        node
+            .attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; });
+      }
+    // });
 
-//NORMAL set up the simulation and add forces
-var simulation = d3.forceSimulation(studentData.nodes)
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
-    .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width / 2, height / 2));
+      // DRAG FUNCTIONS
+      function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
+      function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+      }
+      function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        //COMMENT LINES BELOW TO MAKE NODES STICKY
+        // d.fx = null;
+        // d.fy = null;
+      }
 
-//ZOOM set up the simulation and add forces
-// var simulation = d3.forceSimulation()
-// 					.nodes(studentData.nodes);
-//
-// var link_force =  d3.forceLink(studentData.links)
-//                         .id(function(d) { return d.id; });
-//
-// var charge_force = d3.forceManyBody()
-//     .strength(-100);
-//
-// var center_force = d3.forceCenter(width / 2, height / 2);
-//
-// simulation
-//     .force("charge_force", charge_force)
-//     .force("center_force", center_force)
-//     .force("links",link_force)
-//  ;
+      // COLOR FUNCTIONS
+      //Function to choose what color circle we have
+      function circleColour(d){
+      	if(d.type =="cohort"){
+      		return "#FFBC51";
+      	} else {
+      		return "#52E1FF";
+      	}
+      }
 
-// d3.json('{% static "adaTree/testgraph.json" %}', function(error, graph) {
-//   if (error) throw error;
+    </script>
 
-  //draw lines for the links
-  var link = svg.append("g")
-      .attr("class", "links")
-    .selectAll("line")
-    .data(studentData.links)
-    .enter().append("line")
-      .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
-      //ZOOM style
-      //.style("stroke", linkColour);
-
-  //draw circles for the nodes
-  var node = svg.append("g")
-      .attr("class", "nodes")
-    .selectAll("circle")
-    .data(studentData.nodes)
-    .enter()
-    .append("circle")
-      .attr("r", 7)
-      .attr("fill", function(d) { return color('d.cohort'); })
-      .attr("fill", circleColour);
-
-      //NORMAL DRAG CALL
-      // .call(d3.drag()
-      //     .on("start", dragstarted)
-      //     .on("drag", dragged)
-      //     .on("end", dragended));
-
-      //add drag capabilities
-      var drag_handler = d3.drag()
-      	.on("start", drag_start)
-      	.on("drag", drag_drag)
-      	.on("end", drag_end);
-
-      drag_handler(node);
-
-
-  node.append("title")
-      .text(function(d) {
-        return d.full_name; })
-      // .text(function(d) { return d.pronouns; });
-
-  //NORMAL simulation
-  //   .nodes(studentData.nodes)
-  //   .on("tick", ticked);
-
-  //ZOOM add tick instructions:
-  simulation.on("tick", tickActions );
-
-  //ZOOM add encompassing group for the zoom
-  var g = svg.append("g")
-    .attr("class", "everything");
-
-  simulation
-    .force("link")
-    .links(studentData.links);
-
-  //NORMAL tick function
-  // function ticked() {
-  //   link
-  //       .attr("x1", function(d) { return d.source.x; })
-  //       .attr("y1", function(d) { return d.source.y; })
-  //       .attr("x2", function(d) { return d.target.x; })
-  //       .attr("y2", function(d) { return d.target.y; });
-  //
-  //   node
-  //       .attr("cx", function(d) { return d.x; })
-  //       .attr("cy", function(d) { return d.y; });
-  // }
-// });
-
-// d3.json('{% static "adaTree/testgraph.json" %}', function(error, graph) {
-//   if (error) throw error;
-//
-//   var link = svg.append("g")
-//       .attr("class", "links")
-//     .selectAll("line")
-//     .data(graph.links)
-//     .enter().append("line")
-//       .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
-//
-//   var node = svg.append("g")
-//       .attr("class", "nodes")
-//     .selectAll("circle")
-//     .data(graph.nodes)
-//     .enter().append("circle")
-//       .attr("r", 5)
-//       .attr("fill", function(d) { return color(d.group); })
-//       .call(d3.drag()
-//           .on("start", dragstarted)
-//           .on("drag", dragged)
-//           .on("end", dragended));
-//
-//   node.append("title")
-//       .text(function(d) { return d.id; });
-//
-//   simulation
-//       .nodes(graph.nodes)
-//       .on("tick", ticked);
-//
-//   simulation.force("link")
-//       .links(graph.links);
-//
-//   function ticked() {
-//     link
-//         .attr("x1", function(d) { return d.source.x; })
-//         .attr("y1", function(d) { return d.source.y; })
-//         .attr("x2", function(d) { return d.target.x; })
-//         .attr("y2", function(d) { return d.target.y; });
-//
-//     node
-//         .attr("cx", function(d) { return d.x; })
-//         .attr("cy", function(d) { return d.y; });
-//   }
-// });
-
-//add zoom capabilities
-var zoom_handler = d3.zoom()
-    .on("zoom", zoom_actions);
-
-zoom_handler(svg);
-
-//Zoom functions
-function zoom_actions(){
-    g.attr("transform", d3.event.transform)
-}
-
-/** NORMAL Functions **/
-function dragstarted(d) {
-  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
-  console.log(d3.event.subject);
-}
-
-function dragged(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-}
-
-function dragended(d) {
-  if (!d3.event.active) simulation.alphaTarget(0);
-  //Comment below to make the nodes sticky
-  // d.fx = null;
-  // d.fy = null;
-}
-
-// ZOOM Tick Function
-function tickActions() {
-    //update circle positions each tick of the simulation
-       node
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-
-    //update link positions
-    link
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-}
-
-//ZOOM Drag functions WHERE d is the node
-function drag_start(d) {
- if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
-}
-
-//make sure you can't drag the circle outside the box
-function drag_drag(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-}
-
-function drag_end(d) {
-  if (!d3.event.active) simulation.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
-}
-
-//Function to choose what color circle we have
-function circleColour(d){
-	if(d.type =="cohort"){
-		return "blue";
-	} else {
-		return "pink";
-	}
-}
-</script>
+  </body>
+</html>
