@@ -2,11 +2,17 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Cohort
-from .models import Profile
 from .models import OptInProfile
 
-admin.site.register(Cohort)
+#from .models import Profile
+#admin.site.register(Profile)
 
-admin.site.register(Profile)
+class OptInProfileAdmin(admin.ModelAdmin):
+    search_fields = ('first_name', 'last_name', 'id', )
 
-admin.site.register(OptInProfile)
+class CohortAdmin(admin.ModelAdmin):
+    search_fields = ('cohort_name',)
+
+admin.site.register(Cohort, CohortAdmin)
+
+admin.site.register(OptInProfile, OptInProfileAdmin)
