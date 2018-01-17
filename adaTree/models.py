@@ -91,6 +91,10 @@ class OptInProfile(models.Model):
 
     email = models.CharField(max_length=200, blank=True)
 
+    def __str__(self):
+        return "%s %s (%s)" % (self.first_name, self.last_name, self.id)
+        #return '{}'.format(self.first_name)
+
 
 class Instructor(models.Model):
     first_name = models.CharField(max_length=100, blank=False)
@@ -101,7 +105,7 @@ class Instructor(models.Model):
     pronouns = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
-        return "%s %s" % (self.first_name, self.last_name)
+        return "%s %s (%s)" % (self.first_name, self.last_name, self.id)
 
     def cohorts_served(self):
         return ", ".join([c.cohort_name for c in self.cohorts.all().order_by('cohort_name')])
