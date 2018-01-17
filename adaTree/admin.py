@@ -19,6 +19,7 @@ class CohortAdmin(admin.ModelAdmin):
 class InstructorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'id', 'pronouns', 'cohorts_served', 'description',)
     ordering = ('-id',)
+    search_fields = ('first_name', 'last_name', 'id',)
 
 admin.site.register(Cohort, CohortAdmin)
 
