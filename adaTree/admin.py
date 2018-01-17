@@ -14,7 +14,7 @@ class OptInProfileAdmin(admin.ModelAdmin):
 
 class CohortAdmin(admin.ModelAdmin):
     search_fields = ('cohort_name',)
-    list_display = ('cohort_name',)
+    list_display = ('cohort_name', 'grad_year',)
 
 class InstructorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'id', 'description',)

@@ -31,8 +31,11 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Cohort(models.Model):
     cohort_name = models.CharField(max_length=200, blank=False)
+    grad_year = models.CharField(max_length=4, blank=False)
     description = models.TextField(max_length=500,blank=True)
 
+    def __str__(self):
+        return "%s" % (self.cohort_name)
 
 class Profile(models.Model):
 
