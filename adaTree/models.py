@@ -61,7 +61,7 @@ class Profile(models.Model):
     capstone_info = models.TextField(max_length=500,blank=True)
 
     email = models.CharField(max_length=200, blank=True)
-    
+
 
 class OptInProfile(models.Model):
 
@@ -86,3 +86,12 @@ class OptInProfile(models.Model):
     capstone_info = models.TextField(max_length=500,blank=True)
 
     email = models.CharField(max_length=200, blank=True)
+
+class Instructor(models.Model):
+    first_name = models.CharField(max_length=100, blank=False)
+    last_name = models.CharField(max_length=100, blank=False)
+    email = models.EmailField(max_length=500,blank=True)
+    description = models.TextField(max_length=500,blank=True)
+
+    def __str__(self):
+        return "%s %s" % (self.first_name, self.last_name)
