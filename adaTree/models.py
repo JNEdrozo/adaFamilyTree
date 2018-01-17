@@ -98,6 +98,7 @@ class Instructor(models.Model):
     email = models.EmailField(max_length=500,blank=True)
     description = models.TextField(max_length=500,blank=True)
     cohorts = models.ManyToManyField(Cohort)
+    pronouns = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)

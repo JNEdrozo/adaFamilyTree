@@ -17,7 +17,7 @@ class CohortAdmin(admin.ModelAdmin):
     list_display = ('cohort_name', 'grad_year',)
 
 class InstructorAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'id', 'cohorts_served', 'description',)
+    list_display = ('first_name', 'last_name', 'id', 'pronouns', 'cohorts_served', 'description',)
 
 admin.site.register(Cohort, CohortAdmin)
 
