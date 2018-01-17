@@ -37,6 +37,7 @@ class Cohort(models.Model):
     def __str__(self):
         return "%s" % (self.cohort_name)
 
+
 class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE) #Use so new users can add their own profiles
@@ -90,11 +91,16 @@ class OptInProfile(models.Model):
 
     email = models.CharField(max_length=200, blank=True)
 
+
 class Instructor(models.Model):
     first_name = models.CharField(max_length=100, blank=False)
     last_name = models.CharField(max_length=100, blank=False)
     email = models.EmailField(max_length=500,blank=True)
     description = models.TextField(max_length=500,blank=True)
+    cohorts = models.ManyToManyField(Cohort)
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
+
+    def cohorts_served(self):
+        return ", ".join([c.cohort_name for c in self.cohorts.all().order_by('cohort_name')])
