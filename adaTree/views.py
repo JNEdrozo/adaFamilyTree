@@ -48,7 +48,7 @@ def index(request):
     cohorts = Cohort.objects.all()
 
     nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy"}]
-    # nodes = []
+    #nodes = []
     links = []
 
     for profile in profiles:
