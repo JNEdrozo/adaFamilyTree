@@ -11,9 +11,12 @@ from django.views.generic import TemplateView
 
 from .models import OptInProfile
 from .models import Cohort
+from .models import Instructor
 
 from django.core import serializers
 import json
+
+from django.contrib.auth.decorators import login_required
 
 # CREATE VIEWS HERE---------------------------------------
 
@@ -36,6 +39,7 @@ import json
 #     return render(request, 'adaTree/index.html', context)
 
 # INDEX VIEW (with json data passed to template)
+@login_required
 def index(request):
 
     template = loader.get_template('adaTree/index.html')
@@ -107,13 +111,14 @@ def index(request):
 
     return render(request, 'adaTree/index.html', context)
 
-
+@login_required
 def adaTree(request):
 
     template = loader.get_template('adaTree/adaTree.html')
 
     profiles = OptInProfile.objects.all()
     cohorts = Cohort.objects.all()
+    instructors = Instructor.objects.all()
 
     nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy"}]
     links = []
@@ -154,6 +159,34 @@ def adaTree(request):
             "value": 4,
         })
 
+    # Instructor Cohort Nodes
+    for i in instructors:
+        nodes.append({
+            # "id": i.pk,
+            "id": i.first_name + ' ' + i.last_name,
+            "full_name": i.first_name + ' ' + i.last_name,
+            "description": i.description,
+            "pronouns": i.pronouns,
+            "type": 'staff',
+        })
+
+        # Instructor Cohort Links
+        instructors_cohort_list = i.cohorts.all()
+        for c in instructors_cohort_list:
+            links.append({
+                "source": i.first_name + ' ' + i.last_name,
+                "target": c.cohort_name,
+                "value": 2
+            })
+
+    # for ic in instructor_cohorts:
+    #     links.append({
+    #         "source": ic.id,
+    #         "target": "Ada Developers Academy",
+    #         # "target": {"id": profile.cohort_served},
+    #         "value": 4,
+    #     })
+
     data = {
      # "nodes": serialized_nodes,
      "nodes": nodes,
@@ -165,3 +198,59 @@ def adaTree(request):
     }
 
     return render(request, 'adaTree/adaTree.html', context)
+
+@login_required
+def staffTree(request):
+    template = loader.get_template('adaTree/staffTree.html')
+
+    cohorts = Cohort.objects.all()
+    instructors = Instructor.objects.all()
+
+    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy"}]
+    links = []
+
+    for cohort in cohorts:
+        nodes.append({
+            "id": cohort.cohort_name,
+            "full_name": cohort.cohort_name,
+            "cohort": cohort.cohort_name,
+            "type": 'cohort',
+        })
+        links.append({
+            "source": cohort.cohort_name,
+            "target": "Ada Developers Academy",
+            # "target": {"id": profile.cohort_served},
+            "value": 4,
+        })
+
+    # Instructor Cohort Nodes
+    for i in instructors:
+        nodes.append({
+            # "id": i.pk,
+            "id": i.first_name + ' ' + i.last_name,
+            "full_name": i.first_name + ' ' + i.last_name,
+            "description": i.description,
+            "pronouns": i.pronouns,
+            "type": 'staff',
+        })
+
+        # Instructor Cohort Links
+        instructors_cohort_list = i.cohorts.all()
+        for c in instructors_cohort_list:
+            links.append({
+                "source": i.first_name + ' ' + i.last_name,
+                "target": c.cohort_name,
+                "value": 2
+            })
+
+    data = {
+     # "nodes": serialized_nodes,
+     "nodes": nodes,
+     "links": links
+    }
+
+    context = {
+        'json': json.dumps(data)
+    }
+
+    return render(request, 'adaTree/staffTree.html', context)

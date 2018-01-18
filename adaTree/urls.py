@@ -8,5 +8,6 @@ app_name = 'adaTree'
 urlpatterns = [
     path('', views.index, name="index"),
     path('adaTree/', views.adaTree, name="adaTree"),
+    path('staffTree/', views.staffTree, name="staffTree"),
     #path('', views.IndexView.as_view(), name='index'), #using generic ListView
 ]
