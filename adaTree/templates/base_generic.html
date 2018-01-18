@@ -22,10 +22,20 @@
         <div class="col-sm-2">
         {% block sidebar %}
         <h1 id="title">Ada Family Tree</h1>
+
+        <section class="login-info">
+          {% if user.is_authenticated %}
+            <li>User: {{ user.get_username }}</li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+          {% endif %}
+        </section>
+
         <ul class="sidebar-nav">
             <li><a href="">Entire Ada Family</a></li>
             <li><a href="">Ada Students</a></li>
-            <li><a href="">Ada Students & Instructors</a></li>
+            <li><a href="/adaTree/">Ada Students & Instructors</a></li>
         </ul>
        {% endblock %}
         </div>

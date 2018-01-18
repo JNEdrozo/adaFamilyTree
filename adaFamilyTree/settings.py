@@ -147,3 +147,6 @@ STATICFILES_DIRS = (
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+# For Password Reset: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

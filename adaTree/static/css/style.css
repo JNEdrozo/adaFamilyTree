@@ -15,3 +15,7 @@
     padding: 0;
     list-style: none;
 }
+
+.login-info li {
+  list-style: none;
+}
