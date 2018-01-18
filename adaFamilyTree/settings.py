@@ -145,4 +145,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "adaTree/static/"),
 )
 
-LOGIN_REDIRECT_URL = 'home'
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
