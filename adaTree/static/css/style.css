@@ -11,9 +11,13 @@
 }
 
 .sidebar-nav {
-    margin-top: 30px;
-    padding: 0;
-    list-style: none;
+  margin-top: 30px;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav a, .login-info a{
+  font-family: 'Poppins', sans-serif;
 }
 
 .login-info li {
