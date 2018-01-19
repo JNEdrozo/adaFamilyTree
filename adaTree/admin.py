@@ -28,6 +28,7 @@ class InternshipCompanyAdmin(admin.ModelAdmin):
 
 class CapstoneTechAdmin(admin.ModelAdmin):
     list_display = ('name', 'id',)
+    ordering = ('name',)
 
 
 admin.site.register(Cohort, CohortAdmin)
