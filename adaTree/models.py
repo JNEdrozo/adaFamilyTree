@@ -109,3 +109,12 @@ class Instructor(models.Model):
 
     def cohorts_served(self):
         return ", ".join([c.cohort_name for c in self.cohorts.all().order_by('cohort_name')])
+
+
+class InternshipCompany(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    department = models.CharField(max_length=100, blank=True)
+    description = models.TextField(max_length=500,blank=True)
+
+    def __str__(self):
+        return "%s" % (self.name)

@@ -4,6 +4,7 @@ from django.contrib import admin
 from .models import Cohort
 from .models import OptInProfile
 from .models import Instructor
+from .models import InternshipCompany
 
 #from .models import Profile
 #admin.site.register(Profile)
@@ -21,8 +22,13 @@ class InstructorAdmin(admin.ModelAdmin):
     ordering = ('-id',)
     search_fields = ('first_name', 'last_name', 'id',)
 
+class InternshipCompanyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'id',)
+
 admin.site.register(Cohort, CohortAdmin)
 
 admin.site.register(OptInProfile, OptInProfileAdmin)
 
 admin.site.register(Instructor, InstructorAdmin)
+
+admin.site.register(InternshipCompany, InternshipCompanyAdmin)
