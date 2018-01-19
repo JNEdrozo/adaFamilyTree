@@ -60,7 +60,7 @@
         .data(studentData.nodes)
         .enter()
         .append("circle")
-          .attr("r", 6)
+          .attr("r", circleRadius)
           .attr("fill", function(d) { return color('d.cohort'); })
           .attr("fill", circleColour)
           //DRAG FUNCTION CALLS
@@ -115,7 +115,7 @@
       		return "#FFBC51";
       	}
         else if (d.type =="staff") {
-          return "black";
+          return "#999BEA";
         }
         else if (d.type =="program") {
           return "#83F1F0";
@@ -123,6 +123,21 @@
         else {
       		return "#52E1FF";
       	}
+      }
+
+      function circleRadius(d){
+        if (d.type =="cohort"){
+          return "7";
+        }
+        else if (d.type =="staff") {
+          return "6";
+        }
+        else if (d.type =="program") {
+          return "8";
+        }
+        else {
+          return "6";
+        }
       }
 
     </script>
