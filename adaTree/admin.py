@@ -25,6 +25,8 @@ class InstructorAdmin(admin.ModelAdmin):
 
 class InternshipCompanyAdmin(admin.ModelAdmin):
     list_display = ('name', 'id',)
+    ordering = ('name',)
+    search_fields = ('name',)
 
 class CapstoneTechAdmin(admin.ModelAdmin):
     list_display = ('name', 'id',)
