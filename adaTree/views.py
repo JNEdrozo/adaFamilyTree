@@ -206,7 +206,7 @@ def staffTree(request):
     cohorts = Cohort.objects.all()
     instructors = Instructor.objects.all()
 
-    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy"}]
+    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy", "type": 'program'}]
     links = []
 
     for cohort in cohorts:

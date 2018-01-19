@@ -40,7 +40,7 @@
     var simulation = d3.forceSimulation(studentData.nodes)
         .force("link", d3.forceLink().id(function(d) { return d.id; }))
         .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(width / 2, height / 2));
+        .force("center", d3.forceCenter(width / 4, height / 2.5));
 
     // d3.json('{% static "adaTree/testgraph.json" %}', function(error, graph) {
     //   if (error) throw error;
@@ -60,7 +60,7 @@
         .data(studentData.nodes)
         .enter()
         .append("circle")
-          .attr("r", 6)
+          .attr("r", circleRadius)
           .attr("fill", function(d) { return color('d.cohort'); })
           .attr("fill", circleColour)
           //DRAG FUNCTION CALLS
@@ -115,11 +115,26 @@
       		return "#FFBC51";
       	}
         else if (d.type =="staff") {
-          return "black";
+          return "#999BEA";
         }
         else {
       		return "#52E1FF";
       	}
+      }
+
+      function circleRadius(d){
+        if (d.type =="cohort"){
+          return "7";
+        }
+        else if (d.type =="staff") {
+          return "6";
+        }
+        else if (d.type =="program") {
+          return "15";
+        }
+        else {
+          return "6";
+        }
       }
 
     </script>
