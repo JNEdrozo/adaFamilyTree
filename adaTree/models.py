@@ -118,3 +118,7 @@ class InternshipCompany(models.Model):
 
     def __str__(self):
         return "%s" % (self.name)
+
+class CapstoneTech(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    description = models.TextField(max_length=500,blank=True)
