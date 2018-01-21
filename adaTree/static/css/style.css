@@ -41,6 +41,7 @@
   list-style: none;
 }
 
+
 /* ---------------------------------------------------
     LOGIN & LOGOUT PAGE
 ----------------------------------------------------- */
@@ -64,6 +65,18 @@
 
 #member-info li {
  list-style: none;
+}
+
+#member {
+}
+
+.mass-info {
+  display: inline;
+}
+
+svg {
+  display: inline-flex;
+  float: left;
 }
 
 /* ---------------------------------------------------
