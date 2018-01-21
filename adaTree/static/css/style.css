@@ -96,13 +96,13 @@ a, a:hover, a:focus {
   transition: all 0.3s;
 }
 
-/* Gray navbar in conent page */
+/* Gray navbar in content page */
 .navbar {
   padding: 15px 10px;
   background: #fff;
   border: none;
   border-radius: 0;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -130,8 +130,8 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-  min-width: 250px;
-  max-width: 250px;
+  min-width: 275px;
+  max-width: 275px;
   min-height: 100vh;
   background: #7386D5;
   color: #fff;
@@ -141,13 +141,15 @@ a, a:hover, a:focus {
 }
 
 #sidebar.active {
-  margin-left: -250px;
+  margin-left: -275px;
   transform: rotateY(100deg); /* Rotate sidebar vertically by 100 degrees. */
 }
 
 #sidebar .sidebar-header {
   padding: 20px;
   background: #6d7fcc;
+  text-align: center;
+  margin-left: -1px;
 }
 
 #sidebar ul.components {
@@ -226,7 +228,7 @@ a.article, a.article:hover {
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-  /* padding: 5px; */
+  padding: 5px;
   min-height: 100vh;
   transition: all 0.3s;
   width: 100%;
@@ -284,8 +286,8 @@ a.article, a.article:hover {
   }
 
   #sidebar.active {
-      margin-left: 0;
-      transform: none;
+    margin-left: 0;
+    transform: none;
   }
 
   /* Reversing the behavior of the bars:
