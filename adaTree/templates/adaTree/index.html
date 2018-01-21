@@ -115,7 +115,15 @@
     						.style("right", 10 + "%")
     						.style("top", yPosition + "px")
     						.select("#value")
-    						.html(`<p><strong>Member Info:</strong></p><ul><li>Name: ${d.full_name}</li><li>Cohort: ${d.cohort}</li></ul>`);
+    						.html(`
+                  <section id="member-info">
+                    <p><strong>Member Info</strong></p>
+                    <ul>
+                      <li>Name: ${d.full_name}</li>
+                      <li>Cohort: ${d.cohort}</li>
+                      <li>Pronouns: ${d.pronouns}</li>
+                    </ul>
+                  </section>`);
 
               d3.select("#tooltip").classed("hidden", false);
             } else {
@@ -123,7 +131,7 @@
                 .style("right", 10 + "%")
                 .style("top", yPosition + "px")
                 .select("#value")
-                .html(`<p>Name: ${d.full_name}</p>`);
+                .html(`<p>Cohort: ${d.full_name}</p>`);
 
               d3.select("#tooltip").classed("hidden", false);
             }
@@ -131,6 +139,12 @@
 			    .on("mouseout", function() {
 		        d3.select("#tooltip").classed("hidden", true);
           })
+          .on("dblclick", function(d) {
+            console.log(d);
+            d3.select("#value")
+              .html(`<p>Name: ${d.full_name}</p></p>`)
+            d3.select("#tooltip").classed("hidden", false);
+          });
 
         // });
 
