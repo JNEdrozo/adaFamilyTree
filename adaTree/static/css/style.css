@@ -29,8 +29,11 @@
   text-align: middle;
 }
 
+.login-button {
+  width: 25vw;
+}
 #base-container {
-  margin-top: 50px;
+  margin-top: 70px;
   padding-left: 15px;
   padding-right: 15px;
   text-align: center;

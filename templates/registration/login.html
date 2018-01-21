@@ -9,9 +9,9 @@
 {% bootstrap_messages %}
 
 <div id="login-form">
-  {% if form.errors %}
+  <!-- {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
+  {% endif %} -->
 
   {% if next %}
       {% if user.is_authenticated %}
@@ -42,7 +42,7 @@
   </div> -->
 
   {% buttons %}
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary login-button">
       Log In {% bootstrap_icon "glyphicon glyphicon-tree-conifer" %}
     </button>
   {% endbuttons %}
