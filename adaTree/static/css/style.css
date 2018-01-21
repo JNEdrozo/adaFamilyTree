@@ -1,6 +1,18 @@
 @import "https://fonts.googleapis.com/css?family=Barrio";
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+/* ---------------------------------------------------
+    HEADER
+----------------------------------------------------- */
+.header-logo {
+  font-family: 'Barrio', cursive;
+  color: #FCA205;
+  margin-left: 40%;
+  padding-top: 5px;
+  font-size: 2em;
+  z-index: 2;
+  display: inline-block;
+}
 
 #title{
   /* font-family: 'Ubuntu', sans-serif; */
@@ -47,6 +59,9 @@
   text-align: center;
 }
 
+/* ---------------------------------------------------
+    HEADER
+----------------------------------------------------- */
 footer {
   position: absolute;
   right: 0;
@@ -64,6 +79,7 @@ footer {
 body {
   font-family: 'Poppins', sans-serif;
   background: #fafafa;
+  /* background: black; */
 }
 
 p {
