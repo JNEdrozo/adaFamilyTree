@@ -17,14 +17,16 @@
   </head>
   <body>
 
-    <header>
-      <h1 id="title">Ada Family Tree</h1>
-    </header>
+    <div id="base-container" class="col-lg-4 col-lg-offset-4">
+      <header>
+        <h1 id="title">Ada Family Tree</h1>
+      </header>
 
-    <div class="col-sm-10">
-    {% block content %}{% endblock %}
+      <div >
+        {% block content %}
+        {% endblock %}
+      </div>
     </div>
-
 
     <footer>
       <h5>&copy; 2017 Jedrozo</h3>

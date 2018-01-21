@@ -4,8 +4,8 @@
   font-family: 'Barrio', cursive;
   color: #FCA205;
   /* color: #0E7C7B; */
-  text-align: left;
-  font-size: 3em;
+  text-align: center;
+  font-size: 5em;
   padding-left: 5px;
   padding-top: 5px;
 }
@@ -23,6 +23,17 @@
 
 .login-info li {
   list-style: none;
+}
+
+.base-header-footer-container h1 {
+  text-align: middle;
+}
+
+#base-container {
+  margin-top: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
 }
 
 footer {
