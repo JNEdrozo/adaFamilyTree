@@ -1,5 +1,6 @@
 {% extends "base_generic.html" %}
 {% load static %}
+{% load bootstrap3 %}
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" /> -->
 
 {% block content %}
@@ -63,17 +64,16 @@
     </div>
 
     <div class="row mass-info">
-      <div class="">
-        <svg width="1000" height="700"></svg>
-      </div>
-
-
       <div id="member" class="hidden">
+        <button class="member-close-btn" type="button">
+          &times;
+        </button>
         <p>MEMBER PROFILE INFO</p>
         <p><span id="info-test">100</span></p>
-        <button id="member-close-btn" type="button" class="btn btn-primary">
-          Close
-        </button>
+
+      </div>
+      <div class="d3-visual">
+        <svg width="900" height="700"></svg>
       </div>
     </div>
 

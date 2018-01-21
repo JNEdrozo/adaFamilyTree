@@ -68,6 +68,12 @@
 }
 
 #member {
+  float: right;
+  width: 30vw;
+}
+
+.member-close-btn {
+  float: right;
 }
 
 .mass-info {
@@ -77,12 +83,29 @@
 svg {
   display: inline-flex;
   float: left;
+  position: absolute;
+}
+
+.d3-visual {
+  height: 95vh;
+  margin-bottom: 100px;
 }
 
 /* ---------------------------------------------------
     FOOTER
 ----------------------------------------------------- */
 footer {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: .01rem;
+  background-color: #efefef;
+  text-align: center;
+  z-index: -1;
+}
+
+#footer-log{
   position: absolute;
   right: 0;
   bottom: 0;
@@ -301,7 +324,7 @@ a.article, a.article:hover {
      collapsing in on toggle button click with removal of
      the vertical rotation.   */
   #sidebar {
-    margin-left: -250px;
+    margin-left: -275px;
     transform: rotateY(90deg);
   }
 

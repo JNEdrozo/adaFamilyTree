@@ -5,7 +5,7 @@ $(document).ready(function () {
     $(this).toggleClass('active');
   });
 
-  $('#member-close-btn').on('click', function() {
+  $('.member-close-btn').on('click', function() {
     $('#member').toggleClass('hidden');
   });
 });
