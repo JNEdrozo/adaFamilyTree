@@ -3,58 +3,102 @@
   <head>
     {% block title %}<title>Ada Family Tree</title>{% endblock %}
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Macondo+Swash+Caps" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Barrio" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    <link rel="shortcut icon" href="{% static 'favicon2.ico'%}">
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="wrapper">
 
-      <div class="row">
-        <div class="col-sm-2">
-        {% block sidebar %}
-        <h1 id="title">Ada Family Tree</h1>
+      <nav id="sidebar">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+            <h3>Ada Family Tree</h3>
+        </div>
+
+        <!-- Sidebar Links -->
+         <ul class="list-unstyled components">
+          <li class="active"><a href="#">Home</a></li>
+           <li><a href="/">Ada Students</a></li>
+           <li><a href="/adaTree/">Ada Students & Instructors</a></li>
+           <li><a href="/staffTree/">Ada Instructors</a></li>
+
+           <li class="active"><!-- Link with dropdown items -->
+               <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Page</a>
+               <ul class="collapse list-unstyled" id="homeSubmenu">
+                   <li><a href="#">Page</a></li>
+                   <li><a href="#">Page</a></li>
+                   <li><a href="#">Page</a></li>
+               </ul>
+
+           <li><a href="#">Page</a></li>
+           <li><a href="#">Page</a></li>
+         </ul>
 
         <section class="login-info">
+          <ul class="list-unstyled CTAs">
+
           {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
-            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-          {% else %}
-            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}" class="download">Logout</a></li>
           {% endif %}
 
           {% if request.user.is_staff %}
-            <li><a href="/admin/">View Admin Site</a></li>
+            <li><a href="/admin/" class="article">View Admin Site</a></li>
           {% endif %}
+          </ul>
+
         </section>
 
-        <ul class="sidebar-nav">
-            <li><a href="/">Ada Students</a></li>
-            <li><a href="/adaTree/">Ada Students & Instructors</a></li>
-            <li><a href="/staffTree/">Ada Staff</a></li>
-        </ul>
-       {% endblock %}
-        </div>
+      </nav>
 
-        <div class="col-sm-10">
-        {% block content %}{% endblock %}
-        </div>
+      <!-- Page Content -->
+      <div id="content">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+
+            <div class="navbar-header">
+              <button type="button" id="sidebarCollapse" class="navbar-btn">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Page</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <section>
+          {% block content %}{% endblock %}
+        </section>
       </div>
 
     </div>
 
     <footer>
-      <h5>&copy; 2017 Jedrozo</h3>
+      <h5>&copy; 2017</h3>
     </footer>
 
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/slide.js' %}"></script>
   </body>
 </html>

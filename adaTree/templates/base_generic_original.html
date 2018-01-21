@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block title %}<title>Ada Family Tree</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Macondo+Swash+Caps" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barrio" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  </head>
+  <body>
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-sm-2">
+        {% block sidebar %}
+        <h1 id="title">Ada Family Tree</h1>
+
+        <section class="login-info">
+          {% if user.is_authenticated %}
+            <li>User: {{ user.get_username }}</li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+          {% endif %}
+
+          {% if request.user.is_staff %}
+            <li><a href="/admin/">View Admin Site</a></li>
+          {% endif %}
+        </section>
+
+        <ul class="sidebar-nav">
+            <li><a href="/">Ada Students</a></li>
+            <li><a href="/adaTree/">Ada Students & Instructors</a></li>
+            <li><a href="/staffTree/">Ada Staff</a></li>
+        </ul>
+       {% endblock %}
+        </div>
+
+        <div class="col-sm-10">
+        {% block content %}{% endblock %}
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <h5>&copy; 2017 Jedrozo</h3>
+    </footer>
+
+  </body>
+</html>
