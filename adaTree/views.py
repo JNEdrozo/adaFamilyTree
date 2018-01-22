@@ -12,6 +12,7 @@ from django.views.generic import TemplateView
 from .models import OptInProfile
 from .models import Cohort
 from .models import Instructor
+from .models import InternshipCompany
 
 from django.core import serializers
 import json
@@ -254,3 +255,60 @@ def staffTree(request):
     }
 
     return render(request, 'adaTree/staffTree.html', context)
+
+
+@login_required
+def internships(request):
+    template = loader.get_template('adaTree/internships.html')
+
+    cohorts = Cohort.objects.all()
+    instructors = Instructor.objects.all()
+
+    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy", "type": 'program'}]
+    links = []
+
+    for cohort in cohorts:
+        nodes.append({
+            "id": cohort.cohort_name,
+            "full_name": cohort.cohort_name,
+            "cohort": cohort.cohort_name,
+            "type": 'cohort',
+        })
+        links.append({
+            "source": cohort.cohort_name,
+            "target": "Ada Developers Academy",
+            # "target": {"id": profile.cohort_served},
+            "value": 4,
+        })
+
+    # Instructor Cohort Nodes
+    for i in instructors:
+        nodes.append({
+            # "id": i.pk,
+            "id": i.first_name + ' ' + i.last_name,
+            "full_name": i.first_name + ' ' + i.last_name,
+            "description": i.description,
+            "pronouns": i.pronouns,
+            "type": 'staff',
+        })
+
+        # Instructor Cohort Links
+        instructors_cohort_list = i.cohorts.all()
+        for c in instructors_cohort_list:
+            links.append({
+                "source": i.first_name + ' ' + i.last_name,
+                "target": c.cohort_name,
+                "value": 2
+            })
+
+    data = {
+     # "nodes": serialized_nodes,
+     "nodes": nodes,
+     "links": links
+    }
+
+    context = {
+        'json': json.dumps(data)
+    }
+
+    return render(request, 'adaTree/internships.html', context)
