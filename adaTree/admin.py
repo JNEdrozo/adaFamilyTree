@@ -12,7 +12,7 @@ from .models import Program
 #admin.site.register(Profile)
 
 class OptInProfileAdmin(admin.ModelAdmin):
-    search_fields = ('first_name', 'last_name', 'id', 'cohort_served', 'internship_company',)
+    search_fields = ('first_name', 'last_name', 'id', 'cohort_served',)
     list_display = ('first_name', 'last_name', 'id', 'cohort_served', 'internship_company', 'internship_placement',)
 
 class CohortAdmin(admin.ModelAdmin):
