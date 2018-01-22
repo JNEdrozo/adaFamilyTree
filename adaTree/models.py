@@ -91,6 +91,8 @@ class OptInProfile(models.Model):
 
     email = models.CharField(max_length=200, blank=True)
 
+    internship_company = models.ForeignKey('InternshipCompany', on_delete=models.CASCADE, blank=True)
+
     def __str__(self):
         return "%s %s (%s)" % (self.first_name, self.last_name, self.id)
         #return '{}'.format(self.first_name)
