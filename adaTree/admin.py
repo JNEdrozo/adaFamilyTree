@@ -11,8 +11,8 @@ from .models import CapstoneTech
 #admin.site.register(Profile)
 
 class OptInProfileAdmin(admin.ModelAdmin):
-    search_fields = ('first_name', 'last_name', 'id', 'cohort_served',)
-    list_display = ('first_name', 'last_name', 'id', 'cohort_served',)
+    search_fields = ('first_name', 'last_name', 'id', 'cohort_served', 'internship_company',)
+    list_display = ('first_name', 'last_name', 'id', 'cohort_served', 'internship_company', 'internship_placement',)
 
 class CohortAdmin(admin.ModelAdmin):
     search_fields = ('cohort_name',)
