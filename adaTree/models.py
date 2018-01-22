@@ -29,6 +29,10 @@ from django.contrib.auth.models import User
 # )
 
 # Create your models here.
+class Program(models.Model):
+    name = models.CharField(max_length=100, blank=True)
+
+
 class Cohort(models.Model):
     cohort_name = models.CharField(max_length=200, blank=False)
     grad_year = models.CharField(max_length=4, blank=False)
@@ -37,6 +41,13 @@ class Cohort(models.Model):
     def __str__(self):
         return "%s" % (self.cohort_name)
 
+
+class CapstoneTech(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    description = models.TextField(max_length=500,blank=True)
+
+    def __str__(self):
+        return "%s" % (self.name)
 
 class Profile(models.Model):
 
@@ -93,6 +104,8 @@ class OptInProfile(models.Model):
 
     email = models.CharField(max_length=200, blank=True)
 
+    capstone_tech = models.ManyToManyField(CapstoneTech)
+
 
 
     def __str__(self):
@@ -124,6 +137,7 @@ class InternshipCompany(models.Model):
         return "%s" % (self.name)
 
 
-class CapstoneTech(models.Model):
-    name = models.CharField(max_length=100, blank=False)
-    description = models.TextField(max_length=500,blank=True)
+class Staff(models.Model):
+    first_name = models.CharField(max_length=100, blank=False)
+    last_name = models.CharField(max_length=100, blank=False)
+    description = models.CharField(max_length=100, blank=True)

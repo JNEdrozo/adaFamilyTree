@@ -6,6 +6,7 @@ from .models import OptInProfile
 from .models import Instructor
 from .models import InternshipCompany
 from .models import CapstoneTech
+from .models import Program
 
 #from .models import Profile
 #admin.site.register(Profile)
@@ -33,6 +34,10 @@ class CapstoneTechAdmin(admin.ModelAdmin):
     ordering = ('name',)
     search_fields = ('name',)
 
+class ProgramAdmin(admin.ModelAdmin):
+    list_display = ('name', 'id',)
+
+
 admin.site.register(Cohort, CohortAdmin)
 
 admin.site.register(OptInProfile, OptInProfileAdmin)
@@ -42,3 +47,5 @@ admin.site.register(Instructor, InstructorAdmin)
 admin.site.register(InternshipCompany, InternshipCompanyAdmin)
 
 admin.site.register(CapstoneTech, CapstoneTechAdmin)
+
+admin.site.register(Program, ProgramAdmin)
