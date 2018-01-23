@@ -116,6 +116,14 @@ footer {
   z-index: -1;
 }
 
+.footer-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-left: 115px;
+
+}
+
 /* ---------------------------------------------------
     SIDEBAR THEME
 ----------------------------------------------------- */
@@ -147,6 +155,7 @@ a, a:hover, a:focus {
   border-radius: 0;
   /* margin-bottom: 40px; */
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100vw;
 }
 
 .content-divider {
@@ -315,6 +324,10 @@ a.article, a.article:hover {
 }
 
 
+.night-mode {
+  background-color: black;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -357,5 +370,9 @@ a.article, a.article:hover {
   }
   #sidebarCollapse.active span:last-of-type {
     transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .head-nav {
+    /* background: black; */
   }
 }

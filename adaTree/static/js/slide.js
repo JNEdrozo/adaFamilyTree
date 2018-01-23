@@ -8,4 +8,8 @@ $(document).ready(function () {
   $('.member-close-btn').on('click', function() {
     $('#member').toggleClass('hidden');
   });
+
+  $('#night-option').click(function() {
+    $('body').toggleClass('night-mode');
+  });
 });
