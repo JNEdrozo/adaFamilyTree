@@ -49,7 +49,7 @@ def index(request):
     profiles = OptInProfile.objects.all()
     cohorts = Cohort.objects.all()
 
-    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy"}]
+    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy", "type": 'program',}]
     #nodes = []
     links = []
 
@@ -86,7 +86,7 @@ def index(request):
             "source": cohort.cohort_name,
             "target": "Ada Developers Academy",
             # "target": {"id": profile.cohort_served},
-            "value": 4,
+            "value": 3,
         })
 
     # serialized_nodes = serializers.serialize('json', nodes)

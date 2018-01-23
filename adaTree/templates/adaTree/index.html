@@ -23,7 +23,7 @@
     stroke: #fff;
     stroke-width: 1.5px;
     /* fill: #339cff; */
-    fill-opacity: 0.7;
+    fill-opacity: 1;
     /* pointer-events: none; */
   }
 
@@ -113,7 +113,8 @@
         .data(studentData.nodes)
         .enter()
         .append("circle")
-          .attr("r", 6)
+          // .attr("r", 6)
+          .attr("r", circleRadius)
           .attr("fill", function(d) { return color('d.cohort'); })
           .attr("fill", circleColour)
           //DRAG FUNCTION CALLS
@@ -164,24 +165,41 @@
           .on("dblclick", function(d) {
             console.log(d);
             if(d.type =="student") {
+              d3.select("#info-test").html(`
+                <section class="member-header">
+                  <h2>${d.full_name}</h2>
+                  <a href="${d.linkedin}">
+                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                  </a>
+                </section>
+                <section class="member-details">
+                  <h4>Cohort: ${d.cohort}</h4>
+                  <ul>
+                    <li>Pronouns: ${d.pronouns}</li>
+                    <li>Ada Internship: ${d.internship}</li>
+                    <li>Capstone Info: ${d.capstone}</li>
+                  </ul>
+                </section>
+                `)
+              d3.select(".member").classed("hidden", false);
+            }
+            else if (d.type =="cohort") {
               d3.select("#info-test")
                 .html(`
                   <section class="member-header">
-                    <h2>${d.full_name}</h2>
-                    <a href="${d.linkedin}">
-                      <i class="fa fa-linkedin-square" aria-hidden="true"></i>
-                    </a>
-                  </section>
-                  <section class="member-details">
-                    <h4>Cohort: ${d.cohort}</h4>
-                    <ul>
-                      <li>Pronouns: ${d.pronouns}</li>
-                      <li>Ada Internship: ${d.internship}</li>
-                      <li>Capstone Info: ${d.capstone}</li>
-                    </ul>
+                    <h2>Cohort: ${d.full_name}</h2>
                   </section>
                   `)
-              d3.select(".member").classed("hidden", false);
+                d3.select(".member").classed("hidden", false);
+            }
+            else if (d.type =="program") {
+              d3.select("#info-test")
+                .html(`
+                  <section class="member-header">
+                    <h2>Program: ${d.full_name}</h2>
+                  </section>
+                  `)
+                d3.select(".member").classed("hidden", false);
             }
           });
 
@@ -224,7 +242,7 @@
         // d.fy = null;
       };
 
-      // COLOR FUNCTIONS
+      // COLOR FUNCTION
       //Function to choose what color circle we have
       function circleColour(d){
       	if(d.type =="cohort"){
@@ -233,6 +251,19 @@
       		return "#52E1FF";
       	}
       };
+
+      // RADIUS FUNCTION
+      function circleRadius(d){
+        if (d.type =="cohort"){
+          return "7";
+        }
+        else if (d.type =="program") {
+          return "10";
+        }
+        else {
+          return "6";
+        }
+      }
 
       // ZOOM FUNCTIONS
       var zoom_handler = d3.zoom()
