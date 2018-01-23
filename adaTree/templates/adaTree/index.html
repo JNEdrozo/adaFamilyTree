@@ -63,17 +63,16 @@
       <p><span id="value">100</span></p>
     </div>
 
-    <div class="row mass-info">
-      <div id="member" class="hidden">
+    <div class="mass-info">
+      <div class="hidden member">
         <button class="member-close-btn" type="button">
           &times;
         </button>
-        <p>MEMBER PROFILE INFO</p>
         <p><span id="info-test">100</span></p>
-
       </div>
+
       <div class="d3-visual">
-        <svg width="900" height="700"></svg>
+        <svg width="1500" height="760"></svg>
       </div>
     </div>
 
@@ -167,14 +166,22 @@
             if(d.type =="student") {
               d3.select("#info-test")
                 .html(`
-                  <p>Name: ${d.full_name}</p>
-                  <p>Cohort: ${d.cohort}</p>
-                  <p>Pronouns: ${d.pronouns}</p>
-                  <p>Ada Internship: ${d.internship}</p>
-                  <p>Capstone Info: ${d.capstone}</p>
-                  <p>LinkedIn: <a href="${d.linkedin}">Click Here</a></p>
+                  <section class="member-header">
+                    <h2>${d.full_name}</h2>
+                    <a href="${d.linkedin}">
+                      <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                    </a>
+                  </section>
+                  <section class="member-details">
+                    <h4>Cohort: ${d.cohort}</h4>
+                    <ul>
+                      <li>Pronouns: ${d.pronouns}</li>
+                      <li>Ada Internship: ${d.internship}</li>
+                      <li>Capstone Info: ${d.capstone}</li>
+                    </ul>
+                  </section>
                   `)
-              d3.select("#member").classed("hidden", false);
+              d3.select(".member").classed("hidden", false);
             }
           });
 
