@@ -121,6 +121,7 @@ class Instructor(models.Model):
     def __str__(self):
         return "%s %s (%s)" % (self.first_name, self.last_name, self.id)
 
+    @property
     def cohorts_served(self):
         return ", ".join([c.cohort_name for c in self.cohorts.all().order_by('cohort_name')])
 

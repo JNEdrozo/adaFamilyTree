@@ -169,7 +169,7 @@ def adaTree(request):
             "full_name": i.first_name + ' ' + i.last_name,
             "description": i.description,
             "pronouns": i.pronouns,
-            # "cohorts_served": i.cohorts_served, ERROR: Object of type 'method' is not JSON serializable
+            "cohorts_served": i.cohorts_served,
             "type": 'staff',
         })
 

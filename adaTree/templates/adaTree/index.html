@@ -167,13 +167,16 @@
             if(d.type =="student") {
               d3.select("#info-test").html(`
                 <section class="member-header">
-                  <h2>${d.full_name}</h2>
+                  <a href="${d.linkedin}">
+                    <h2>${d.full_name}</h2>
+                  </a>
                   <a href="${d.linkedin}">
                     <i class="fa fa-linkedin-square" aria-hidden="true"></i>
                   </a>
                 </section>
+
                 <section class="member-details">
-                  <h4>Cohort: ${d.cohort}</h4>
+                  <h3>Cohort: ${d.cohort}</h3>
                   <ul>
                     <li>Pronouns: ${d.pronouns}</li>
                     <li>Ada Internship: ${d.internship}</li>
