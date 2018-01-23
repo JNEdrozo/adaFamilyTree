@@ -113,6 +113,7 @@ def index(request):
 
     return render(request, 'adaTree/index.html', context)
 
+
 @login_required
 def adaTree(request):
 
@@ -143,7 +144,6 @@ def adaTree(request):
         links.append({
             "source": profile.pk,
             "target": profile.cohort_served,
-            # "target": {"id": profile.cohort_served},
             "value": 2,
         })
 
@@ -169,6 +169,7 @@ def adaTree(request):
             "full_name": i.first_name + ' ' + i.last_name,
             "description": i.description,
             "pronouns": i.pronouns,
+            # "cohorts_served": i.cohorts_served, ERROR: Object of type 'method' is not JSON serializable
             "type": 'staff',
         })
 
@@ -181,16 +182,7 @@ def adaTree(request):
                 "value": 2
             })
 
-    # for ic in instructor_cohorts:
-    #     links.append({
-    #         "source": ic.id,
-    #         "target": "Ada Developers Academy",
-    #         # "target": {"id": profile.cohort_served},
-    #         "value": 4,
-    #     })
-
     data = {
-     # "nodes": serialized_nodes,
      "nodes": nodes,
      "links": links
     }
@@ -200,6 +192,7 @@ def adaTree(request):
     }
 
     return render(request, 'adaTree/adaTree.html', context)
+
 
 @login_required
 def staffTree(request):
@@ -380,5 +373,3 @@ def capstoneTech(request):
     }
 
     return render(request, 'adaTree/capstoneTech.html', context)
-
-    

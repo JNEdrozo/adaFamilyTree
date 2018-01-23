@@ -11,7 +11,8 @@
     <meta charset="utf-8">
     <!-- <title>Ada Family Tree Home</title> -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" charset="utf-8"></script>
+
   </head>
 
   <style>
@@ -22,9 +23,8 @@
   .nodes circle {
     stroke: #fff;
     stroke-width: 1.5px;
-    /* fill: #339cff; */
     fill-opacity: 1;
-    /* COMMENT OUT FOR GENERAL TOOLTIP /* 
+    /* COMMENT OUT FOR GENERAL TOOLTIP /*
     /* pointer-events: none; */
   }
 
@@ -78,7 +78,6 @@
     </div>
 
     <script>
-
       var studentData = JSON.parse("{{json|escapejs}}");
       //check that studentData is in correct format
       console.log(studentData);
