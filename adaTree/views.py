@@ -380,3 +380,5 @@ def capstoneTech(request):
     }
 
     return render(request, 'adaTree/capstoneTech.html', context)
+
+    
