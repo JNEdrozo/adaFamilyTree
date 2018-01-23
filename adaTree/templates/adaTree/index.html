@@ -95,8 +95,12 @@
           .force("charge", d3.forceManyBody())
           .force("center", d3.forceCenter(width / 2, height / 2));
 
+      //add encompassing group for the zoom
+      var container = svg.append("g")
+          .attr("class", "everything");
+
       //DRAW LINES
-      var link = svg.append("g")
+      var link = container.append("g")
           .attr("class", "links")
         .selectAll("line")
         .data(studentData.links)
@@ -104,7 +108,7 @@
           .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
 
       //DRAW CIRCLES
-      var node = svg.append("g")
+      var node = container.append("g")
           .attr("class", "nodes")
         .selectAll("circle")
         .data(studentData.nodes)
@@ -174,8 +178,6 @@
             }
           });
 
-        // });
-
       node.append("title")
           .text(function(d) { return d.full_name; });
 
@@ -224,6 +226,18 @@
       		return "#52E1FF";
       	}
       };
+
+      // ZOOM FUNCTIONS
+      var zoom_handler = d3.zoom()
+          .on("zoom", zoom_actions);
+
+      zoom_handler(svg);
+
+      //Zoom functions
+      function zoom_actions(){
+          container.attr("transform", d3.event.transform)
+      }
+
 
     </script>
 
