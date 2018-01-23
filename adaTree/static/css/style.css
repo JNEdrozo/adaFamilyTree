@@ -54,10 +54,14 @@
 }
 
 #base-container {
-  margin-top: 70px;
+  margin-top: 90px;
   padding-left: 15px;
   padding-right: 15px;
   text-align: center;
+}
+
+section.log-in-again-links {
+  margin-top: 20px;
 }
 /* ---------------------------------------------------
     MEMBER INFO

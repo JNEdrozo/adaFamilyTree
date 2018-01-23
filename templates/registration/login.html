@@ -26,7 +26,6 @@
   {% csrf_token %}
   {% bootstrap_form form show_label=False %}
 
-
   <!-- <div>
     <td>{{ form.username.label_tag }}</td>
     <td>{{ form.username }}</td>
@@ -44,6 +43,7 @@
   {% buttons %}
     <button type="submit" class="btn btn-primary login-button">
       Log In {% bootstrap_icon "glyphicon glyphicon-tree-conifer" %}
+      <!-- Log In {% bootstrap_icon "glyphicon glyphicon-log-in" %} -->
     </button>
   {% endbuttons %}
   </form>
