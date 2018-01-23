@@ -35,9 +35,9 @@
            <li><a href="/capstoneTech/">Ada Student Capstone Tech</a></li>
 
            <li class="active"><!-- Link with dropdown items -->
-               <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Page</a>
+               <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Settings</a>
                <ul class="collapse list-unstyled" id="homeSubmenu">
-                   <li><a href="#">Page</a></li>
+                   <li><a href="#" id="night-option">Night Mode</a></li>
                    <li><a href="#">Page</a></li>
                    <li><a href="#">Page</a></li>
                </ul>
@@ -82,12 +82,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <a href="/"><h5 class="header-logo">Ada Family Tree</h5></a>
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" id="night-option">Night Mode</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
+                {% if user.is_authenticated %}
+                  <li><a href="#">{{ user.get_username }}</a></li>
+                  <li><a href="{% url 'logout'%}?next={{request.path}}" class="download">Logout</a></li>
+                {% endif %}
               </ul>
             </div>
+          
           </div>
         </nav>
 

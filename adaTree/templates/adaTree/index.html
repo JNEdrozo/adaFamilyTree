@@ -24,6 +24,7 @@
     stroke-width: 1.5px;
     /* fill: #339cff; */
     fill-opacity: 1;
+    /* COMMENT OUT FOR GENERAL TOOLTIP /* 
     /* pointer-events: none; */
   }
 
@@ -267,13 +268,12 @@
 
       // ZOOM FUNCTIONS
       var zoom_handler = d3.zoom()
-          .on("zoom", zoom_actions);
+        .on("zoom", zoom_actions);
 
       zoom_handler(svg);
 
-      //Zoom functions
       function zoom_actions(){
-          container.attr("transform", d3.event.transform)
+        container.attr("transform", d3.event.transform)
       }
 
 
