@@ -1,6 +1,10 @@
 @import "https://fonts.googleapis.com/css?family=Barrio";
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+/* Scale on Hover with Transition */
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.1); }
+
 /* BUTTON SWITCH */
 
 .switch {
@@ -80,7 +84,7 @@ input:checked + .slider:before {
 #night-mode-box p {
   font-size: 1.11em;
   font-weight: 400;
-  margin-top: -6px;
+  margin-top: -8px;
 }
 
 /* ---------------------------------------------------
@@ -91,7 +95,7 @@ input:checked + .slider:before {
   color: #FCA205;
   margin-left: 40%;
   padding-top: 5px;
-  font-size: 2em;
+  font-size: 2.1em;
   z-index: 2;
   display: inline-block;
 }
@@ -292,7 +296,8 @@ p {
 }
 
 a, a:hover, a:focus {
-  color: inherit;
+  /* color: inherit; */
+  color: #fff;
   text-decoration: none;
   transition: all 0.3s;
 }
@@ -354,7 +359,10 @@ a, a:hover, a:focus {
 
 #sidebar ul.components {
   padding: 20px 0;
-  border-bottom: 1px solid #47748b; /*color of side bar bottomline */
+  margin-bottom: -7px;
+  /*color of side bar bottomline */
+  /* border-bottom: 1px solid #8F9FDD;  */
+
 }
 
 #sidebar ul p {
@@ -370,7 +378,7 @@ a, a:hover, a:focus {
 
 #sidebar ul li a:hover {
   color: #7386D5;
-  background: #fff;
+  background: #F1F3FA;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
@@ -418,11 +426,24 @@ a.download {
   color: #7386D5;
 }
 
-a.article, a.article:hover {
-  background: #6d7fcc !important;
-  color: #fff !important;
+a.download:hover {
+  border: 2px solid white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }
 
+a.article {
+  background: #6779BF;
+  color: #fff;
+}
+
+ul.CTAs a.article:hover {
+  border: 2px solid white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
 
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -434,6 +455,7 @@ a.article, a.article:hover {
   width: 100%;
 }
 
+/* Menu Button */
 #sidebarCollapse {
   width: 40px;
   height: 40px;
@@ -442,12 +464,10 @@ a.article, a.article:hover {
 }
 
 #sidebarCollapse:hover {
-  width: 41px;
-  height: 41px;
   transition: all 0.3s;
-  /* background: #DCDCDC;
+  background: #DCDCDC;
   background: #D2D2D5;
-  background: #E8E8EA; */
+  background: #E8E8EA;
 }
 
 /* MENU AND X ICON */
@@ -480,20 +500,25 @@ a.article, a.article:hover {
   /* all bars are visible */
   opacity: 1;
   margin: 5px auto;
-  /* background: #7386D5; */
+  background: #7386D5;
 }
 
 .night-mode {
   background-color: #22222D;
 }
 
-/* .night-mode-header {
+.night-mode-header {
   background-color: transparent;
-} */
+  /* background-color: white;
+  opacity: .55; */
+}
 
 .head-nav-slide {
   margin-left: 15px;
+}
 
+.sidebarCollapse-btn-night-mode {
+  background-color: red;
 }
 
 /* ---------------------------------------------------

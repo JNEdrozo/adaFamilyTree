@@ -26,7 +26,7 @@
         </div>
 
         <!-- Sidebar Links -->
-        <ul class="list-unstyled components">
+        <ul class="components">
           <li><a href="#">Home</a></li>
           <!-- <li class="active"><a href="#">Family Filters</a></li> -->
             <li><a href="/">Ada Students</a></li>
@@ -44,11 +44,9 @@
               </section>
             </li>
 
-
-
           <!-- <li>
                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Family Filters</a>
-               <ul class="collapse list-unstyled" id="homeSubmenu">
+               <ul class="collapse" id="homeSubmenu">
                  <li><a href="/">Ada Students</a></li>
                  <li><a href="/adaTree/">Ada Students & Instructors</a></li>
                  <li><a href="/staffTree/">Ada Instructors</a></li>
@@ -56,29 +54,32 @@
                  <li><a href="/capstoneTech/">Ada Student Capstone Tech</a></li>
                </ul -->
 
-         <li class="active"><!-- Link with dropdown items -->
+          <!-- Link with dropdown items -->
+          <!-- <li class="active">
               <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="active">Settings</a>
-              <ul class="collapse list-unstyled" id="homeSubmenu2">
-                  <li><a href="#" id="night-option">Night Mode</a></li>
+              <ul class="collapse" id="homeSubmenu2">
                   <li><a href="#">Page</a></li>
                   <li><a href="#">Page</a></li>
-              </ul
+                  <li><a href="#">Page</a></li>
+              </ul> -->
         </ul>
 
-        <section class="login-info">
-          <ul class="list-unstyled CTAs">
+        <div class="sidebar-header">
+          <section class="login-info">
+            <ul class="CTAs">
 
-          {% if user.is_authenticated %}
-            <li>User: {{ user.get_username }}</li>
-            <li><a href="{% url 'logout'%}?next={{request.path}}" class="download">Logout</a></li>
-          {% endif %}
+            {% if user.is_authenticated %}
+              <li><h5>User: {{ user.get_username }}</h5></li>
+              <li><a href="{% url 'logout'%}?next={{request.path}}" class="download">Logout</a></li>
+            {% endif %}
 
-          {% if request.user.is_staff %}
-            <li><a href="/admin/" class="article">View Admin Site</a></li>
-          {% endif %}
-          </ul>
+            {% if request.user.is_staff %}
+              <li><a href="/admin/" class="article">View Admin Site</a></li>
+            {% endif %}
+            </ul>
 
-        </section>
+          </section>
+        </div>
 
         <section class="footer-info">
           <h5>&copy; 2018</h3>
@@ -93,7 +94,7 @@
           <div class="container-fluid">
 
             <div class="navbar-header">
-              <button type="button" id="sidebarCollapse" class="navbar-btn">
+              <button type="button" id="sidebarCollapse" class="navbar-btn grow">
                   <span></span>
                   <span></span>
                   <span></span>
@@ -101,7 +102,7 @@
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <a href="/"><h5 class="header-logo">Ada Family Tree</h5></a>
+              <a href="/"><h5 class="header-logo grow">Ada Family Tree</h5></a>
               <ul class="nav navbar-nav navbar-right">
                 <!-- {% if user.is_authenticated %}
                   <li><a href="#">{{ user.get_username }}</a></li>
