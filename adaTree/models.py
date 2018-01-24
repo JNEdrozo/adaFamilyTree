@@ -110,6 +110,11 @@ class OptInProfile(models.Model):
         return "%s %s (%s)" % (self.first_name, self.last_name, self.id)
         #return '{}'.format(self.first_name)
 
+    @property
+    def capstone_techstack(self):
+        return ", ".join([tech.name for tech in self.capstone_tech.all().order_by('name')])
+
+
 class Instructor(models.Model):
     first_name = models.CharField(max_length=100, blank=False)
     last_name = models.CharField(max_length=100, blank=False)
