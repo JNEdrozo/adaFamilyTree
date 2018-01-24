@@ -297,7 +297,7 @@ def internships(request):
         links.append({
             "source": profile.pk,
             "target": profile.internship_company.name,
-            "value": 2,
+            "value": 1.5,
         })
 
     data = {
@@ -361,7 +361,7 @@ def capstoneTech(request):
                 links.append({
                     "source": profile.pk,
                     "target": tech.name,
-                    "value": 1.8,
+                    "value": 2,
                 })
 
     data = {
