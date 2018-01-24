@@ -269,6 +269,7 @@ def internships(request):
                 "id": company.name,
                 "full_name": company.name,
                 "department": company.department,
+                "company_students": company.company_students,
                 "type": 'company',
             })
             # Company to Ada Links
