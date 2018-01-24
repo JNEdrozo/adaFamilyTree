@@ -1,6 +1,5 @@
 {% extends "base_generic.html" %}
 {% load static %}
-<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" /> -->
 
 {% block content %}
 <!DOCTYPE html>
@@ -9,6 +8,8 @@
     <meta charset="utf-8">
     <!-- <title>Ada Family Tree Home</title> -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" charset="utf-8"></script>
+
   </head>
 
   <style>
@@ -19,34 +20,54 @@
   .nodes circle {
     stroke: #fff;
     stroke-width: 1.5px;
+    fill-opacity: 1;
+    /* COMMENT OUT FOR GENERAL TOOLTIP /*
+    /* pointer-events: none; */
   }
+
+  .nodes cirle:hover {
+    fill-opacity: 1;
+  }
+
   </style>
 
   <body>
-    <svg width="1000" height="700"></svg>
+    <div class="mass-info">
+      <div class="hidden member">
+        <button class="member-close-btn" type="button">
+          &times;
+        </button>
+        <p><span id="info-test">100</span></p>
+      </div>
+
+      <div class="d3-visual">
+        <svg width="1390" height="700"></svg>
+      </div>
+    </div>
 
     <script>
-    var studentData = JSON.parse("{{json|escapejs}}");
-    //check that studentData is in correct format
-    console.log(studentData);
+      var studentData = JSON.parse("{{json|escapejs}}");
+      //check that studentData is in correct format
+      console.log(studentData);
 
-    //create somewhere to put the force directed graph
-    var svg = d3.select("svg"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height");
+      //create somewhere to put the force directed graph
+      var svg = d3.select("svg"),
+          width = +svg.attr("width"),
+          height = +svg.attr("height");
 
-    var color = d3.scaleOrdinal(d3.schemeCategory20);
+      var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-    var simulation = d3.forceSimulation(studentData.nodes)
-        .force("link", d3.forceLink().id(function(d) { return d.id; }))
-        .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(width / 4, height / 2.5));
+      var simulation = d3.forceSimulation(studentData.nodes)
+          .force("link", d3.forceLink().id(function(d) { return d.id; }))
+          .force("charge", d3.forceManyBody().strength(-240).distanceMax(80).distanceMin(10))
+          .force("center", d3.forceCenter(width / 2.6, height / 2.2));
 
-    // d3.json('{% static "adaTree/testgraph.json" %}', function(error, graph) {
-    //   if (error) throw error;
+      //add encompassing group for the zoom
+      var container = svg.append("g")
+          .attr("class", "everything");
 
       //DRAW LINES
-      var link = svg.append("g")
+      var link = container.append("g")
           .attr("class", "links")
         .selectAll("line")
         .data(studentData.links)
@@ -54,20 +75,63 @@
           .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
 
       //DRAW CIRCLES
-      var node = svg.append("g")
+      var node = container.append("g")
           .attr("class", "nodes")
         .selectAll("circle")
         .data(studentData.nodes)
         .enter()
         .append("circle")
           .attr("r", circleRadius)
-          .attr("fill", function(d) { return color('d.full_name'); })
           .attr("fill", circleColour)
           //DRAG FUNCTION CALLS
           .call(d3.drag()
               .on("start", dragstarted)
               .on("drag", dragged)
-              .on("end", dragended));
+              .on("end", dragended))
+          //SHOW NODE DETAILS
+          .on("dblclick", function(d) {
+            console.log(d);
+            if(d.type =="student") {
+              d3.select("#info-test").html(`
+                <section class="member-header">
+                  <a href="${d.linkedin}">
+                    <h2>${d.full_name}</h2>
+                  </a>
+                  <a href="${d.linkedin}">
+                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                  </a>
+                </section>
+
+                <section class="member-details">
+                  <h3>Cohort: ${d.cohort}</h3>
+                  <ul>
+                    <li>Pronouns: ${d.pronouns}</li>
+                    <li>Ada Internship: ${d.internship}</li>
+                    <li>Capstone Info: ${d.capstone}</li>
+                  </ul>
+                </section>
+                `)
+              d3.select(".member").classed("hidden", false);
+            }
+            else if (d.type =="program") {
+              d3.select("#info-test")
+                .html(`
+                  <section class="member-header">
+                    <h2>Program: ${d.full_name}</h2>
+                  </section>
+                  `)
+                d3.select(".member").classed("hidden", false);
+            }
+            else if (d.type =="tech") {
+              d3.select("#info-test").html(`
+                <section class="member-header">
+                  <h2>${d.full_name}</h2>
+
+                </section>
+              `)
+              d3.select(".member").classed("hidden", false);
+            }
+          });
 
       node.append("title")
           .text(function(d) { return d.full_name; });
@@ -75,6 +139,7 @@
       simulation
           .nodes(studentData.nodes)
           .on("tick", ticked);
+
       simulation
           .force("link")
           .links(studentData.links);
@@ -89,7 +154,6 @@
             .attr("cx", function(d) { return d.x; })
             .attr("cy", function(d) { return d.y; });
       }
-    // });
 
       // DRAG FUNCTIONS
       function dragstarted(d) {
@@ -112,22 +176,17 @@
       //Function to choose what color circle we have
       function circleColour(d){
       	if (d.type =="tech"){
-      		return "#FFBC51";
+      		return "#78CE89";
       	}
-        // else if (d.type =="staff") {
-        //   return "#999BEA";
-        // }
         else {
       		return "#52E1FF";
       	}
       }
 
+      // RADIUS FUNCTION
       function circleRadius(d){
-        if (d.type =="cohort"){
+        if (d.type =="tech"){
           return "7";
-        }
-        else if (d.type =="staff") {
-          return "6";
         }
         else if (d.type =="program") {
           return "15";
@@ -136,6 +195,17 @@
           return "6";
         }
       }
+
+      // ZOOM FUNCTIONS
+      var zoom_handler = d3.zoom()
+        .on("zoom", zoom_actions);
+
+      zoom_handler(svg);
+
+      function zoom_actions(){
+        container.attr("transform", d3.event.transform)
+      }
+
 
     </script>
 
