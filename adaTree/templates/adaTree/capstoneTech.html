@@ -19,7 +19,7 @@
     stroke-opacity: 0.6;
   }
 
-  .node circle {
+  .nodes circle {
     stroke: #fff;
     fill-opacity: 1;
     /* pointer-events: none; */
@@ -30,7 +30,7 @@
   } */
 
   .labels {
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(0,0,0,0.6);
     text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
                  0px -5px 35px rgba(255,255,255,0.3);
@@ -48,7 +48,7 @@
       </div>
 
       <div class="d3-visual">
-        <svg width="1390" height="700"></svg>
+        <svg width="1900" height="900"></svg>
       </div>
     </div>
 
@@ -66,7 +66,7 @@
 
       var simulation = d3.forceSimulation(studentData.nodes)
           .force("link", d3.forceLink().id(function(d) { return d.id; }))
-          .force("charge", d3.forceManyBody().strength(-500).distanceMax(250).distanceMin(30))
+          .force("charge", d3.forceManyBody().strength(-600).distanceMax(250).distanceMin(20))
           .force("center", d3.forceCenter(width / 2.6, height / 2.2));
 
       //add encompassing group for the zoom
@@ -115,6 +115,7 @@
                     <li>Pronouns: ${d.pronouns}</li>
                     <li>Ada Internship: ${d.internship}</li>
                     <li>Capstone Info: ${d.capstone}</li>
+                    <li>Tech Stack: ${d.tech_stack}</li>
                   </ul>
                 </section>
                 `)
@@ -133,6 +134,11 @@
               d3.select("#info-test").html(`
                 <section class="member-header">
                   <h2>Tech: ${d.full_name}</h2>
+                </section>
+
+                <section class="member-details">
+                  <h3>Adies with ${d.full_name} Experience:</h3>
+                  <p>${d.tech_students}</p>
 
                 </section>
               `)
@@ -150,7 +156,7 @@
             .attr('dominant-baseline', 'central')
             .style('font-family','Poppins','sans-serif')
             .style('font-size','10px')
-            .attr("fill", "#9197A0")
+            .attr("fill", letterColor)
             .text(function (d) {return d.full_name;})
             .attr("dx", 12)
             .attr("dy", ".35em")
@@ -218,13 +224,13 @@
       // RADIUS FUNCTION
       function circleRadius(d){
         if (d.type =="tech"){
-          return "10";
+          return "16";
         }
         else if (d.type =="program") {
-          return "22";
+          return "20";
         }
         else {
-          return "8";
+          return "14";
         }
       }
 
@@ -238,6 +244,18 @@
         container.attr("transform", d3.event.transform)
       }
 
+      // LABEL-LETTERS COLOR FUNCTION
+      function letterColor(d) {
+        if (d.type =="tech"){
+          return "#828585";
+      	}
+        else if (d.type =="program") {
+          return "transparent";
+        }
+        else if (d.type =="student") {
+          return "#828585";
+        }
+      }
     </script>
 
   </body>

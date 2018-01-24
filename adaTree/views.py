@@ -326,16 +326,18 @@ def capstoneTech(request):
 
     # Tech Nodes & Links
     for tech in techs:
-        nodes.append({
-            "id": tech.name,
-            "full_name": tech.name,
-            "type": 'tech',
-        })
-        links.append({
-            "source": tech.name,
-            "target": "Ada Developers Academy",
-            "value": .5,
-        })
+        # if tech.name != "Not Applicable":
+            nodes.append({
+                "id": tech.name,
+                "full_name": tech.name,
+                "tech_students": tech.tech_students,
+                "type": 'tech',
+            })
+            links.append({
+                "source": tech.name,
+                "target": "Ada Developers Academy",
+                "value": .5,
+            })
 
     # Profile Nodes
     for profile in profiles:
@@ -351,6 +353,7 @@ def capstoneTech(request):
                 "internship": profile.internship_company.name,
                 "linkedin": profile.linkedin,
                 "capstone": profile.capstone_info,
+                "tech_stack": profile.capstone_techstack,
                 "type": 'student',
             })
 

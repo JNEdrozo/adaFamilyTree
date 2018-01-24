@@ -49,6 +49,18 @@ class CapstoneTech(models.Model):
     def __str__(self):
         return "%s" % (self.name)
 
+    @property
+    def tech_students(self):
+        tech_students = OptInProfile.objects.filter(capstone_tech__name = self.name).order_by('first_name')
+        student_list = []
+
+        for student in tech_students:
+            full_name = " %s %s - %s" % (student.first_name, student.last_name, student.cohort_served)
+            student_list.append(full_name)
+
+        return student_list
+
+
 class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE) #Use so new users can add their own profiles

@@ -250,7 +250,7 @@ a, a:hover, a:focus {
 #sidebar {
   min-width: 275px;
   max-width: 275px;
-  min-height: 100vh;
+  min-height: 110vh;
   background: #7386D5;
   color: #fff;
   /* transition: all 0.3s; */

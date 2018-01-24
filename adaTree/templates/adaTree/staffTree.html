@@ -17,17 +17,17 @@
     stroke-opacity: 0.6;
     /* stroke-width: 1px; */
   }
-  .nodes circle {
+  .node circle {
     stroke: #fff;
     stroke-width: 1.5px;
-    fill-opacity: 1;
+    fill-opacity: 0.7;
     /* COMMENT OUT FOR GENERAL TOOLTIP /*
     /* pointer-events: none; */
   }
 
-  .nodes cirle:hover {
+  /* .node cirle:hover {
     fill-opacity: 1;
-  }
+  } */
 
   </style>
 
@@ -82,7 +82,6 @@
         .enter()
         .append("circle")
           .attr("r", circleRadius)
-          .attr("fill", function(d) { return color('d.cohort'); })
           .attr("fill", circleColour)
           //DRAG FUNCTION CALLS
           .call(d3.drag()
