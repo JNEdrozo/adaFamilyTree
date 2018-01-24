@@ -151,6 +151,19 @@ class InternshipCompany(models.Model):
     def __str__(self):
         return "%s" % (self.name)
 
+    @property
+    def company_students(self):
+        company = InternshipCompany.objects.get(pk = self.pk)
+        #Note: optinprofile is all lower case for the many-to-one relationship (different from many-to-many where camelcase model letters are separated by underscores)
+        student_queryset = company.optinprofile_set.all().order_by('first_name')
+        student_list = []
+
+        for student in student_queryset:
+            full_name = " %s %s - %s" % (student.first_name, student.last_name, student.cohort_served)
+            student_list.append(full_name)
+
+        return student_list
+
 
 class Staff(models.Model):
     first_name = models.CharField(max_length=100, blank=False)
