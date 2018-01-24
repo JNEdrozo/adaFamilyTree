@@ -18,6 +18,8 @@ $(document).ready(function () {
   $('#night-option').click(function() {
     $('body').toggleClass('night-mode');
     // $('.head-nav').toggleClass('night-mode-header');
+
   });
-  
+
+
 });

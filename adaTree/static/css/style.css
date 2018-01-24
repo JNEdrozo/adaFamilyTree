@@ -1,6 +1,88 @@
 @import "https://fonts.googleapis.com/css?family=Barrio";
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+/* BUTTON SWITCH */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  /* width: 60px; */
+  width: 48px;
+  /* height: 34px; */
+  height: 24px;
+}
+
+.switch input {
+  /* display:none; */
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #B9C3EA;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  /* height: 26px;
+  width: 26px; */
+  height: 16px;
+  width: 16px;
+  /* left: 4px;
+  bottom: 4px; */
+  left: 5px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #505E95;
+  /* background-color: #5C6CAA; */
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+/* distance the slider traverses on toggle AND slider backgroung-color change*/
+input:checked + .slider:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
+  background-color: #7387D5;
+  background-color: #6779BF;
+}
+
+/* Rounded sliders */
+.slider{
+  /* border-radius: 34px; */
+  border-radius: 4px;
+}
+
+.slider:before {
+  border-radius: 10%;
+}
+
+#night-mode-box {
+  display: inline-flex;
+  margin-top: 2px;
+}
+
+#night-mode-box p {
+  font-size: 1.11em;
+  font-weight: 400;
+  margin-top: -6px;
+}
+
 /* ---------------------------------------------------
     HEADER
 ----------------------------------------------------- */
