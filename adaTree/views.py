@@ -226,6 +226,7 @@ def staffTree(request):
             "full_name": i.first_name + ' ' + i.last_name,
             "description": i.description,
             "pronouns": i.pronouns,
+            "cohorts_served": i.cohorts_served,
             "type": 'staff',
         })
 
@@ -239,9 +240,9 @@ def staffTree(request):
             })
 
     data = {
-     # "nodes": serialized_nodes,
-     "nodes": nodes,
-     "links": links
+      # "nodes": serialized_nodes,
+      "nodes": nodes,
+      "links": links
     }
 
     context = {
