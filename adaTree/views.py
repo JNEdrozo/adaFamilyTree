@@ -215,7 +215,7 @@ def staffTree(request):
             "source": cohort.cohort_name,
             "target": "Ada Developers Academy",
             # "target": {"id": profile.cohort_served},
-            "value": 4,
+            "value": 3,
         })
 
     # Instructor Cohort Nodes
@@ -274,7 +274,7 @@ def internships(request):
         links.append({
             "source": company.name,
             "target": "Ada Developers Academy",
-            "value": 3,
+            "value": 2.5,
         })
 
     for profile in profiles:
@@ -287,6 +287,7 @@ def internships(request):
             "pronouns": profile.pronouns,
             "cohort": profile.cohort_served,
             "internship": profile.internship_company.name,
+            "internship_details": profile.internship_placement,
             "linkedin": profile.linkedin,
             "capstone": profile.capstone_info,
             "type": 'student',
@@ -296,7 +297,7 @@ def internships(request):
         links.append({
             "source": profile.pk,
             "target": profile.internship_company.name,
-            "value": 2
+            "value": 2,
         })
 
     data = {
