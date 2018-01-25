@@ -12,6 +12,7 @@ urlpatterns = [
     path('staffTree/', views.staffTree, name="staffTree"),
     path('staffTreeLabel/', views.staffTree, name="staffTreeLabel"),
     path('internships/', views.internships, name="internships"),
+    path('internshipsLabel/', views.internships, name="internshipsLabel"),
     path('capstoneTech/', views.capstoneTech, name="capstoneTech"),
     #path('', views.IndexView.as_view(), name='index'), #using generic ListView
 ]

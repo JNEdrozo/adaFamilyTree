@@ -452,6 +452,69 @@ def internships(request):
 
 
 @login_required
+def internshipsLabel(request):
+    template = loader.get_template('adaTree/internshipsLabel.html')
+
+    profiles = OptInProfile.objects.all()
+    companies = InternshipCompany.objects.all()
+
+    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy", "type": 'program'}]
+    links = []
+
+    for company in companies:
+        if company.name != "Not Applicable":
+            # Comany Node data for D3
+            nodes.append({
+                "id": company.name,
+                "full_name": company.name,
+                "department": company.department,
+                "company_students": company.company_students,
+                "type": 'company',
+            })
+            # Company to Ada Links
+            links.append({
+                "source": company.name,
+                "target": "Ada Developers Academy",
+                "value": 2.5,
+            })
+
+
+    for profile in profiles:
+        if profile.internship_company.name != "Not Applicable":
+            # Profile Node data for D3
+            nodes.append({
+                "id": profile.pk,
+                "program": profile.program,
+                "full_name": profile.first_name + ' ' + profile.last_name,
+                "relation": profile.ada_relation,
+                "pronouns": profile.pronouns,
+                "cohort": profile.cohort_served,
+                "internship": profile.internship_company.name,
+                "internship_details": profile.internship_placement,
+                "linkedin": profile.linkedin,
+                "capstone": profile.capstone_info,
+                "type": 'student',
+            })
+            # Profile to Company Links
+            links.append({
+                "source": profile.pk,
+                "target": profile.internship_company.name,
+                "value": 1.5,
+            })
+
+    data = {
+        "nodes": nodes,
+        "links": links
+    }
+
+    context = {
+        'json': json.dumps(data)
+    }
+
+    return render(request, 'adaTree/internshipsLabel.html', context)
+
+
+@login_required
 def capstoneTech(request):
     template = loader.get_template('adaTree/capstoneTech.html')
 
