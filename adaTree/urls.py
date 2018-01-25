@@ -10,6 +10,7 @@ urlpatterns = [
     path('adaTree/', views.adaTree, name="adaTree"),
     path('adaTreeLabel/', views.adaTree, name="adaTreeLabel"),
     path('staffTree/', views.staffTree, name="staffTree"),
+    path('staffTreeLabel/', views.staffTree, name="staffTreeLabel"),
     path('internships/', views.internships, name="internships"),
     path('capstoneTech/', views.capstoneTech, name="capstoneTech"),
     #path('', views.IndexView.as_view(), name='index'), #using generic ListView
