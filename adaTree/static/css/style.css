@@ -1,6 +1,14 @@
 @import "https://fonts.googleapis.com/css?family=Barrio";
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+/* GLOW */
+
+.glow {
+  color: rgba(0,0,0,0.6);
+  text-shadow: 2px 6px 10px rgba(0,0,0,0.1),
+                   0px 2px 35px rgba(255,255,255,.7);
+}
+
 /* Scale on Hover with Transition */
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
@@ -509,8 +517,10 @@ ul.CTAs a.article:hover {
 
 .night-mode-header {
   background-color: transparent;
+  background-color: #1E1E28;
   /* background-color: white;
   opacity: .55; */
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .head-nav-slide {
