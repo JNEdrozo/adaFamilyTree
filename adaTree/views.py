@@ -218,7 +218,7 @@ def studentsLabel(request):
             "source": profile.pk,
             "target": profile.cohort_served,
             # "target": {"id": profile.cohort_served},
-            "value": 2,
+            "value": 6,
         })
 
     for cohort in cohorts:
@@ -232,7 +232,7 @@ def studentsLabel(request):
             "source": cohort.cohort_name,
             "target": "Ada Developers Academy",
             # "target": {"id": profile.cohort_served},
-            "value": 3,
+            "value": 10,
         })
 
     # serialized_nodes = serializers.serialize('json', nodes)
