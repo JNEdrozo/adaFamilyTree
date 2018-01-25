@@ -780,7 +780,7 @@ def capstoneTechLabel(request):
                 links.append({
                     "source": profile.pk,
                     "target": tech.name,
-                    "value": 2,
+                    "value": 4,
                 })
 
     data = {
