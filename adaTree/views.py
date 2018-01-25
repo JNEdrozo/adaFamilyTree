@@ -518,7 +518,7 @@ def staffTreeLabel(request):
             links.append({
                 "source": i.first_name + ' ' + i.last_name,
                 "target": c.cohort_name,
-                "value": 2
+                "value": 5,
             })
 
     data = {

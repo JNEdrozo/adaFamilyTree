@@ -13,21 +13,26 @@
 
   <style>
   .links line {
-    stroke: #999;
+    stroke: #C6C7CA;
     stroke-opacity: 0.6;
-    /* stroke-width: 1px; */
   }
-  .node circle {
+  .nodes circle {
     stroke: #fff;
-    stroke-width: 1.5px;
-    fill-opacity: 0.7;
+    fill-opacity: 1;
     /* COMMENT OUT FOR GENERAL TOOLTIP /*
     /* pointer-events: none; */
   }
 
-  /* .node cirle:hover {
+  .nodes cirle:hover {
     fill-opacity: 1;
-  } */
+  }
+
+  .labels {
+    font-weight: 600;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 2px 7px 6px rgba(0,0,0,0.6),
+                 2px -3px 35px rgba(255,255,255,0.8);
+  }
 
   </style>
 
@@ -59,7 +64,7 @@
 
       var simulation = d3.forceSimulation(studentData.nodes)
           .force("link", d3.forceLink().id(function(d) { return d.id; }))
-          .force("charge", d3.forceManyBody().strength(-500))
+          .force("charge", d3.forceManyBody().strength(-800).distanceMax(800).distanceMin(200))
           .force("center", d3.forceCenter(width / 3, height / 2));
 
       //add encompassing group for the zoom
@@ -128,6 +133,25 @@
             }
           });
 
+      // labels
+      var label = container.append("g")
+          .attr("class", "labels")
+          .selectAll("text")
+          .data(studentData.nodes)
+          .enter().append("text")
+          .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'central')
+            .style('font-family','Poppins','sans-serif')
+            .style('font-size','10px')
+            .attr("fill", letterColor)
+            .text(function (d) {return d.full_name;})
+            .attr("dx", 12)
+            .attr("dy", ".35em")
+            .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+
       node.append("title")
           .text(function(d) { return d.full_name; });
 
@@ -148,6 +172,11 @@
         node
             .attr("cx", function(d) { return d.x; })
             .attr("cy", function(d) { return d.y; });
+
+        // update label positions
+        label
+            .attr("x", function(d) { return d.x; })
+            .attr("y", function (d) { return d.y; })
       }
 
       // DRAG FUNCTIONS
@@ -184,17 +213,17 @@
       // RADIUS FUNCTION
       function circleRadius(d){
         if (d.type =="cohort"){
-          return "7";
+          return "16";
         }
         else if (d.type =="staff") {
-          return "6";
+          return "14";
         }
         else if (d.type =="program") {
-          return "10";
+          return "20";
         }
-        else {
-          return "6";
-        }
+        // else {
+        //   return "6";
+        // }
       }
 
       // ZOOM FUNCTIONS
@@ -205,6 +234,20 @@
 
       function zoom_actions(){
         container.attr("transform", d3.event.transform)
+      }
+
+      // LABEL-LETTERS COLOR FUNCTION
+      function letterColor(d) {
+        if (d.type =="cohort"){
+          return "#828585";
+        }
+        else if (d.type =="program") {
+          // return "transparent";
+          return "#828585";
+        }
+        else if (d.type =="staff") {
+          return "#828585";
+        }
       }
 
     </script>
