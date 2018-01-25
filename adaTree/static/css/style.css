@@ -160,9 +160,19 @@ input:checked + .slider:before {
   text-align: center;
 }
 
-section.log-in-again-links {
+#log-in-again-links {
   margin-top: 20px;
 }
+
+#log-in-again-links a {
+  color: gray;
+}
+
+#log-in-again-links a:hover {
+  color: #FCA205;
+  font-size: 1.03em;
+}
+
 /* ---------------------------------------------------
     MEMBER INFO
 ----------------------------------------------------- */
@@ -297,7 +307,7 @@ footer {
 }
 
 #footer-log a:hover {
-  color: gray;
+  /* color: gray; */
   color: #FCA205;
   font-size: 1.5em;
 }

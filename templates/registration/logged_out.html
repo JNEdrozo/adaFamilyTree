@@ -5,9 +5,9 @@
 <h3>Logged out!</h3>
 
 <section id="log-in-again-links">
-  <p><a href="{% url 'login'%}">Click here to log in again.</a></p>
+  <p><a href="{% url 'login'%}" class="grow">Click here to log in as another user.</a></p>
 
-  <!-- <p><a href="{% url 'admin:index' %}">Click here to login as an admin.</a></p> -->
+  <p><a href="{% url 'admin:index' %}" class="grow">Click here to login as an admin.</a></p>
 </section>
 
 {% endblock %}
