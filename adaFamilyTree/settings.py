@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'adaFamilyTree.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 # LOCAL
-DATABASES = {
+# DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'adafamilytreedb',
