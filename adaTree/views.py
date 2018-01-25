@@ -621,7 +621,7 @@ def internshipsLabel(request):
             links.append({
                 "source": company.name,
                 "target": "Ada Developers Academy",
-                "value": 2.5,
+                "value": 5,
             })
 
 
@@ -645,7 +645,7 @@ def internshipsLabel(request):
             links.append({
                 "source": profile.pk,
                 "target": profile.internship_company.name,
-                "value": 1.5,
+                "value": 10,
             })
 
     data = {
