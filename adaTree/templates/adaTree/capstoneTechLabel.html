@@ -15,7 +15,7 @@
 
   <style>
   .links line {
-    stroke: #999;
+    stroke: #C6C7CA;
     stroke-opacity: 0.6;
   }
 
@@ -25,15 +25,15 @@
     /* pointer-events: none; */
   }
 
-  /* .nodes cirle:hover {
+  .nodes circle:hover {
     fill-opacity: 1;
-  } */
+  }
 
   .labels {
     font-weight: 600;
     color: rgba(0,0,0,0.6);
-    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
-                 0px -5px 35px rgba(255,255,255,0.3);
+    text-shadow: 2px 7px 7px rgba(0,0,0,0.5),
+                 2px 12px 35px rgba(255,255,255,0.8);
   }
 
   </style>
@@ -250,7 +250,8 @@
           return "#828585";
       	}
         else if (d.type =="program") {
-          return "transparent";
+          // return "transparent";
+          return "#828585";
         }
         else if (d.type =="student") {
           return "#828585";

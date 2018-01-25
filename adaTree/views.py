@@ -682,7 +682,7 @@ def capstoneTech(request):
             links.append({
                 "source": tech.name,
                 "target": "Ada Developers Academy",
-                "value": .5,
+                "value": 0.7,
             })
 
     # Profile Nodes
@@ -750,7 +750,7 @@ def capstoneTechLabel(request):
             links.append({
                 "source": tech.name,
                 "target": "Ada Developers Academy",
-                "value": .5,
+                "value": 0.8,
             })
 
     # Profile Nodes
@@ -780,7 +780,7 @@ def capstoneTechLabel(request):
                 links.append({
                     "source": profile.pk,
                     "target": tech.name,
-                    "value": 1.5,
+                    "value": 2,
                 })
 
     data = {
