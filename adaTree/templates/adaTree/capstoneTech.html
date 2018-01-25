@@ -6,9 +6,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <!-- <title>Ada Family Tree Home</title> -->
+    <!-- <title>Ada Family Tree Capstone Tech</title> -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <!-- <script src="//d3js.org/d3.v4.0.0-alpha.49.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" charset="utf-8"></script>
 
   </head>
@@ -18,24 +17,16 @@
     stroke: #999;
     stroke-opacity: 0.6;
   }
-
   .nodes circle {
     stroke: #fff;
+    stroke-width: 1.5px;
     fill-opacity: 1;
+    /* COMMENT OUT FOR GENERAL TOOLTIP /*
     /* pointer-events: none; */
   }
-
-  /* .nodes cirle:hover {
+  .nodes cirle:hover {
     fill-opacity: 1;
-  } */
-
-  .labels {
-    font-weight: 600;
-    color: rgba(0,0,0,0.6);
-    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
-                 0px -5px 35px rgba(255,255,255,0.3);
   }
-
   </style>
 
   <body>
@@ -48,7 +39,7 @@
       </div>
 
       <div class="d3-visual">
-        <svg width="1900" height="900"></svg>
+        <svg width="1390" height="700"></svg>
       </div>
     </div>
 
@@ -56,23 +47,18 @@
       var studentData = JSON.parse("{{json|escapejs}}");
       //check that studentData is in correct format
       console.log(studentData);
-
       //create somewhere to put the force directed graph
       var svg = d3.select("svg"),
           width = +svg.attr("width"),
           height = +svg.attr("height");
-
       var color = d3.scaleOrdinal(d3.schemeCategory20);
-
       var simulation = d3.forceSimulation(studentData.nodes)
           .force("link", d3.forceLink().id(function(d) { return d.id; }))
-          .force("charge", d3.forceManyBody().strength(-600).distanceMax(250).distanceMin(20))
+          .force("charge", d3.forceManyBody().strength(-240).distanceMax(80).distanceMin(10))
           .force("center", d3.forceCenter(width / 2.6, height / 2.2));
-
       //add encompassing group for the zoom
       var container = svg.append("g")
           .attr("class", "everything");
-
       //DRAW LINES
       var link = container.append("g")
           .attr("class", "links")
@@ -80,7 +66,6 @@
         .data(studentData.links)
         .enter().append("line")
           .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
-
       //DRAW CIRCLES
       var node = container.append("g")
           .attr("class", "nodes")
@@ -108,14 +93,12 @@
                     <i class="fa fa-linkedin-square" aria-hidden="true"></i>
                   </a>
                 </section>
-
                 <section class="member-details">
                   <h3>Cohort: ${d.cohort}</h3>
                   <ul>
                     <li>Pronouns: ${d.pronouns}</li>
                     <li>Ada Internship: ${d.internship}</li>
                     <li>Capstone Info: ${d.capstone}</li>
-                    <li>Tech Stack: ${d.tech_stack}</li>
                   </ul>
                 </section>
                 `)
@@ -133,49 +116,20 @@
             else if (d.type =="tech") {
               d3.select("#info-test").html(`
                 <section class="member-header">
-                  <h2>Tech: ${d.full_name}</h2>
-                </section>
-
-                <section class="member-details">
-                  <h3>Adies with ${d.full_name} Experience:</h3>
-                  <p>${d.tech_students}</p>
-
+                  <h2>${d.full_name}</h2>
                 </section>
               `)
               d3.select(".member").classed("hidden", false);
             }
           });
-
-      // labels
-      var label = container.append("g")
-          .attr("class", "labels")
-          .selectAll("text")
-          .data(studentData.nodes)
-          .enter().append("text")
-          .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'central')
-            .style('font-family','Poppins','sans-serif')
-            .style('font-size','10px')
-            .attr("fill", letterColor)
-            .text(function (d) {return d.full_name;})
-            .attr("dx", 12)
-            .attr("dy", ".35em")
-            .call(d3.drag()
-                    .on("start", dragstarted)
-                    .on("drag", dragged)
-                    .on("end", dragended));
-
       node.append("title")
-          .text(function(d) { return d.full_name });
-
+          .text(function(d) { return d.full_name; });
       simulation
           .nodes(studentData.nodes)
           .on("tick", ticked);
-
       simulation
           .force("link")
           .links(studentData.links);
-
       function ticked() {
         link
             .attr("x1", function(d) { return d.source.x; })
@@ -185,14 +139,7 @@
         node
             .attr("cx", function(d) { return d.x; })
             .attr("cy", function(d) { return d.y; });
-
-        // update label positions
-        label
-        		.attr("x", function(d) { return d.x; })
-            .attr("y", function (d) { return d.y; })
-
       }
-
       // DRAG FUNCTIONS
       function dragstarted(d) {
         if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -209,7 +156,6 @@
         // d.fx = null;
         // d.fy = null;
       }
-
       // COLOR FUNCTIONS
       //Function to choose what color circle we have
       function circleColour(d){
@@ -220,17 +166,16 @@
       		return "#52E1FF";
       	}
       }
-
       // RADIUS FUNCTION
       function circleRadius(d){
         if (d.type =="tech"){
-          return "16";
+          return "7";
         }
         else if (d.type =="program") {
-          return "20";
+          return "15";
         }
         else {
-          return "14";
+          return "6";
         }
       }
 
@@ -244,18 +189,6 @@
         container.attr("transform", d3.event.transform)
       }
 
-      // LABEL-LETTERS COLOR FUNCTION
-      function letterColor(d) {
-        if (d.type =="tech"){
-          return "#828585";
-      	}
-        else if (d.type =="program") {
-          return "transparent";
-        }
-        else if (d.type =="student") {
-          return "#828585";
-        }
-      }
     </script>
 
   </body>
