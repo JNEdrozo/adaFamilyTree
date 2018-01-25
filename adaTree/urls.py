@@ -8,6 +8,7 @@ app_name = 'adaTree'
 urlpatterns = [
     path('', views.index, name="index"),
     path('adaTree/', views.adaTree, name="adaTree"),
+    path('adaTreeLabel/', views.adaTree, name="adaTreeLabel"),
     path('staffTree/', views.staffTree, name="staffTree"),
     path('internships/', views.internships, name="internships"),
     path('capstoneTech/', views.capstoneTech, name="capstoneTech"),

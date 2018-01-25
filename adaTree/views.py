@@ -193,6 +193,85 @@ def adaTree(request):
 
     return render(request, 'adaTree/adaTree.html', context)
 
+@login_required
+def adaTreeLabel(request):
+
+    template = loader.get_template('adaTree/adaTreeLabel.html')
+
+    profiles = OptInProfile.objects.all()
+    cohorts = Cohort.objects.all()
+    instructors = Instructor.objects.all()
+
+    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy", "type": 'program'}]
+    links = []
+
+    for profile in profiles:
+        # Node data for D3
+        nodes.append({
+            "id": profile.pk,
+            "program": profile.program,
+            "full_name": profile.first_name + ' ' + profile.last_name,
+            "relation": profile.ada_relation,
+            "pronouns": profile.pronouns,
+            "cohort": profile.cohort_served,
+            "internship": profile.internship_placement,
+            "linkedin": profile.linkedin,
+            "capstone": profile.capstone_info,
+            "type": 'student',
+        })
+        # Link data for D3
+        links.append({
+            "source": profile.pk,
+            "target": profile.cohort_served,
+            "value": 2,
+        })
+
+    for cohort in cohorts:
+        nodes.append({
+            "id": cohort.cohort_name,
+            "full_name": cohort.cohort_name,
+            "cohort": cohort.cohort_name,
+            "type": 'cohort',
+        })
+        links.append({
+            "source": cohort.cohort_name,
+            "target": "Ada Developers Academy",
+            # "target": {"id": profile.cohort_served},
+            "value": 4,
+        })
+
+    # Instructor Cohort Nodes
+    for i in instructors:
+        nodes.append({
+            # "id": i.pk,
+            "id": i.first_name + ' ' + i.last_name,
+            "full_name": i.first_name + ' ' + i.last_name,
+            "description": i.description,
+            "pronouns": i.pronouns,
+            "cohorts_served": i.cohorts_served,
+            "type": 'staff',
+        })
+
+        # Instructor Cohort Links
+        instructors_cohort_list = i.cohorts.all()
+        for c in instructors_cohort_list:
+            links.append({
+                "source": i.first_name + ' ' + i.last_name,
+                "target": c.cohort_name,
+                "value": 2
+            })
+
+    data = {
+     "nodes": nodes,
+     "links": links
+    }
+
+    context = {
+        'json': json.dumps(data)
+    }
+
+    return render(request, 'adaTree/adaTreeLabel', context)
+
 
 @login_required
 def staffTree(request):
