@@ -154,7 +154,7 @@ input:checked + .slider:before {
 }
 
 #base-container {
-  margin-top: 20vh;
+  margin-top: 15vh;
   padding-left: 15px;
   padding-right: 15px;
   text-align: center;
