@@ -14,8 +14,5 @@ $(document).ready(function () {
     $('body').toggleClass('night-mode');
     $('.head-nav').toggleClass('night-mode-header');
     // $('#button#sidebarCollapse.navbar-btn').toggleClass('sidebarCollapse-btn-night-mode');
-
   });
-
-
 });

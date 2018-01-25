@@ -8,10 +8,336 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <!-- <title>Ada Family Tree Home</title> -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" charset="utf-8"></script>
+
   </head>
+
+  <style>
+  .links line {
+    stroke: #999;
+    stroke-opacity: 0.6;
+  }
+  .nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+    fill-opacity: 1;
+    /* COMMENT OUT FOR GENERAL TOOLTIP /*
+    /* pointer-events: none; */
+  }
+
+  .nodes cirle:hover {
+    fill-opacity: 1;
+  }
+
+  </style>
+
   <body>
-    <h1>Welcome to the Ada Family Tree Web App</h1>
+    <div id="tutorial">
+      <div id="tutorial-msg" class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>
+        <p>
+          <strong>Welcome and Explore the Ada Family Tree Now!</strong>
+        </p>
+
+        <p>
+          <strong>NOTE: </strong>Currently, node summaries (accessed through by double-clicking a node) cannot be viewed on <em>mobile</em> devices; only node titles and labels.
+        </p>
+      </div>
+
+      <div class="mass-info">
+        <div class="hidden member">
+          <button class="member-close-btn" type="button">
+            &times;
+          </button>
+          <p><span id="info-test">100</span></p>
+        </div>
+
+        <div class="d3-visual-home">
+          <svg width="1500" height="420"></svg>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+      var studentData = JSON.parse("{{json|escapejs}}");
+      //check that studentData is in correct format
+      // console.log(studentData);
+
+      //create somewhere to put the force directed graph
+      var svg = d3.select("svg"),
+          width = +svg.attr("width"),
+          height = +svg.attr("height");
+
+      var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+      var simulation = d3.forceSimulation(studentData.nodes)
+          .force("link", d3.forceLink().id(function(d) { return d.id; }))
+          .force("charge", d3.forceManyBody())
+          .force("center", d3.forceCenter(width / 2, height / 2));
+
+      //add encompassing group for the zoom
+      var container = svg.append("g")
+          .attr("class", "everything");
+
+      //DRAW LINES
+      var link = container.append("g")
+          .attr("class", "links")
+        .selectAll("line")
+        .data(studentData.links)
+        .enter().append("line")
+          .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+      //DRAW CIRCLES
+      var node = container.append("g")
+          .attr("class", "nodes")
+        .selectAll("circle")
+        .data(studentData.nodes)
+        .enter()
+        .append("circle")
+          // .attr("r", 6)
+          .attr("r", circleRadius)
+          .attr("fill", function(d) { return color('d.cohort'); })
+          .attr("fill", circleColour)
+          //DRAG FUNCTION CALLS
+          .call(d3.drag()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended))
+          //SHOW NODE DETAILS
+          .on("dblclick", function(d) {
+            console.log(d);
+            if(d.type =="student") {
+              d3.select("#info-test").html(`
+                <section class="member-header">
+                  <a href="${d.linkedin}">
+                    <h2>${d.full_name}</h2>
+                  </a>
+                  <a href="${d.linkedin}">
+                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                  </a>
+                </section>
+
+                <section class="member-details">
+                  <h3>Cohort: ${d.cohort}</h3>
+                  <ul>
+                    <li>Pronouns: ${d.pronouns}</li>
+                    <li>Ada Internship: ${d.internship}</li>
+                    <li>Capstone Info: ${d.capstone}</li>
+                  </ul>
+                </section>
+                `)
+              d3.select(".member").classed("hidden", false);
+            }
+            else if (d.type =="cohort") {
+              d3.select("#info-test")
+                .html(`
+                  <section class="member-header">
+                    <h2>Cohort: ${d.full_name}</h2>
+                  </section>
+                  `)
+                d3.select(".member").classed("hidden", false);
+            }
+            else if (d.type =="program") {
+              d3.select("#info-test")
+                .html(`
+                  <section class="member-header">
+                    <h2>Program: ${d.full_name}</h2>
+                  </section>
+                  `)
+                d3.select(".member").classed("hidden", false);
+            }
+            else if (d.type =="staff") {
+              d3.select("#info-test").html(`
+                <section class="member-header">
+                  <h2>${d.full_name}</h2>
+                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                </section>
+
+                <section class="member-details">
+                  <h3>Cohorts: ${d.cohorts_served}</h3>
+                  <ul>
+                    <li>Pronouns: ${d.pronouns}</li>
+                    <li>Description: ${d.description}</li>
+                  </ul>
+                </section>
+              `)
+              d3.select(".member").classed("hidden", false);
+            }
+          });
+
+      node.append("title")
+          .text(function(d) { return d.full_name; });
+
+      simulation
+          .nodes(studentData.nodes)
+          .on("tick", ticked);
+
+      simulation
+          .force("link")
+          .links(studentData.links);
+
+      function ticked() {
+        link
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+        node
+            .attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; });
+      };
+
+      // DRAG FUNCTIONS
+      function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      };
+      function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+      };
+      function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        //COMMENT LINES BELOW TO MAKE NODES STICKY
+        // d.fx = null;
+        // d.fy = null;
+      };
+
+      // COLOR FUNCTION
+      //Function to choose what color circle we have
+      function circleColour(d){
+      	if (d.type =="cohort"){
+      		return "#FFBC51";
+      	}
+        else if (d.type =="staff") {
+          return "#999BEA";
+        }
+        else if (d.type =="program") {
+          return "#83F1F0";
+        }
+        else {
+      		return "#52E1FF";
+      	}
+      }
+
+      // RADIUS FUNCTION
+      function circleRadius(d){
+        if (d.type =="cohort"){
+          return "7";
+        }
+        else if (d.type =="program") {
+          return "10";
+        }
+        else {
+          return "6";
+        }
+      }
+
+      // ZOOM FUNCTIONS
+      var zoom_handler = d3.zoom()
+        .on("zoom", zoom_actions);
+
+      zoom_handler(svg);
+
+      function zoom_actions(){
+        container.attr("transform", d3.event.transform)
+      }
+
+
+    </script>
+
+
+    <div id="general-info">
+      <div id="intro" class=" col-sm-3">
+
+        <h2 id="how-to">Overview</h2>
+            <p>
+              Use the side bar to navigate between different family tree filters ( "Students", "Students & Instructors", "Instructional Staff", "Internship Network", and "Capstone Technologies").
+            </p>
+
+          <h4>Family Tree Features</h4>
+            <ul>
+              <li>
+                Node Summaries: Double-click on tree nodes to zoom in and read information on a member, company, cohort, capstone technology.
+              </li>
+              <li>
+                Node Lables:You may hover over nodes to display thier titles OR use the label filters in the side bar.
+              </li>
+              <li>
+                Draggable Nodes: Click and hold down on a node to move its position.
+              </li>
+              <li>
+                Draggable Canvas:Click on empty canvas space (outside of node/tree) and drag the canvas to re-center your view.
+              </li>
+              <li>
+                Night Mode: Switch allows you to toggle between light or dark displays.
+              </li>
+              <li>
+                Zoom & Panning: Use scroll or touchpad to zoom and resize your view of the visuals.
+              </li>
+
+            </ul>
+          <div class="content-divider">
+      </div>
+
+
+      </div>
+      <div class="col-sm-3">
+        <h2 id="mission">Mission</h2>
+
+        <p>
+          Welcome and thank you for using the Ada Family Tree!
+          This web application aims to accomplish two goals:
+        </p>
+
+        <ul>
+          <li>
+            Visually <strong>map the growth</strong> of the Ada social network,
+          </li>
+          <li>
+            Help others in the Ada family <strong>connect</strong> and <strong>learn more</strong> about members of our Ada community
+          </li>
+        </ul>
+
+        <p>If you have suggestions or would like to send feedback for improvement, please send all questions and inquiries to: jedrozo@gmail.com. </p>
+
+
+      </div>
+
+
+      <div class="col-sm-3">
+        <h2 id="about">About</h2>
+          <p>
+            Creation of the Ada Family Tree was motivated primarily by Ada’s legacy wall of photos and, by a general collective desire to improve means of connecting and learning from and more about our Adie predecessors. For many of us, we've learned about former Adies from the "wall" of photos, meet-ups, occasional anecdotes, linkedIn, and of course google, but prior to the webapp, there wasn't a readily available resource that documented all Adies and former/current ADA staff who are or were a part of the ADA family. The Ada Family Tree was built and hopes to facilitate the documentation and bridging of connection gaps in Ada's ever-growing social network.
+
+          </p>
+      </div>
+
+      <div class="col-sm-3">
+
+        <h2 id="privacy">Privacy</h2>
+          <p>
+            To respect privacy concerns, currently only Ada staff and <em>approved</em> users (e.g. Ada Admin Staff and developers of this tool) of the Ada community may view or edit the family tree. Until further notice, Ada Staff may share the family tree with their class or students on a need-to-know-basis or when valid reason is warranted.
+          </p>
+
+
+          <h4>Disclaimer:</h4>
+          <ul>
+            <li>
+              Data represented in this app was sourced from an online survey requesting voluntary input. All data and survey responses will be released and shared with the Ada Developers Academy administration team to build on their current student/staff demographics.
+            </li>
+          </ul>
+
+
+      </div>
+
+    </div>
+
   </body>
 </html>
 
