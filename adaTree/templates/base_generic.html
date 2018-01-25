@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <link rel="shortcut icon" href="{% static 'favicon2.ico'%}">
+
+    {% load bootstrap3 %}
   </head>
   <body>
     <div class="wrapper">
@@ -27,7 +29,7 @@
 
         <!-- Sidebar Links -->
         <ul class="components list-unstyled">
-          <li><a href="#">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li>
               <a href="#studentSubmenu" data-toggle="collapse" aria-expanded="false">Students</a>
               <ul class="collapse list-unstyled" id="studentSubmenu">
@@ -79,8 +81,13 @@
             <ul class="CTAs">
 
             {% if user.is_authenticated %}
-              <li><h5>User: {{ user.get_username }}</h5></li>
-              <li><a href="{% url 'logout'%}?next={{request.path}}" class="download">Logout</a></li>
+              <li>
+                {% bootstrap_icon "glyphicon glyphicon-user" %}
+                <h5>User: {{ user.get_username }}</h5>
+              </li>
+              <li>
+                <a href="{% url 'logout'%}?next={{request.path}}" class="download">Logout</a>
+              </li>
             {% endif %}
 
             {% if request.user.is_staff %}
