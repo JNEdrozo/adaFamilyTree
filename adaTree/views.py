@@ -580,3 +580,71 @@ def capstoneTech(request):
     }
 
     return render(request, 'adaTree/capstoneTech.html', context)
+
+
+@login_required
+def capstoneTechLabel(request):
+    template = loader.get_template('adaTree/capstoneTechLabel.html')
+
+    profiles = OptInProfile.objects.all()
+    techs = CapstoneTech.objects.all()
+
+    nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy", "type": 'program'}]
+    links = []
+
+    # Tech Nodes & Links
+    for tech in techs:
+        # if tech.name != "Not Applicable":
+            nodes.append({
+                "id": tech.name,
+                "full_name": tech.name,
+                "tech_students": tech.tech_students,
+                "type": 'tech',
+            })
+            links.append({
+                "source": tech.name,
+                "target": "Ada Developers Academy",
+                "value": .5,
+            })
+
+    # Profile Nodes
+    for profile in profiles:
+        if profile.capstone_tech.count() > 0:
+            # Profile Node data for D3
+            nodes.append({
+                "id": profile.pk,
+                "program": profile.program,
+                "full_name": profile.first_name + ' ' + profile.last_name,
+                "relation": profile.ada_relation,
+                "pronouns": profile.pronouns,
+                "cohort": profile.cohort_served,
+                "internship": profile.internship_company.name,
+                "linkedin": profile.linkedin,
+                "capstone": profile.capstone_info,
+                "tech_stack": profile.capstone_techstack,
+                "type": 'student',
+            })
+
+            capstone_techs = profile.capstone_tech.all()
+            # print(capstone_techs)
+            for tech in capstone_techs:
+                # print(str(profile.pk) + ' | ' + str(ct.pk) + ' - ' + ct.name)
+
+                # Profile to Tech Links
+                links.append({
+                    "source": profile.pk,
+                    "target": tech.name,
+                    "value": 1.5,
+                })
+
+    data = {
+     # "nodes": serialized_nodes,
+     "nodes": nodes,
+     "links": links
+    }
+
+    context = {
+        'json': json.dumps(data)
+    }
+
+    return render(request, 'adaTree/capstoneTechLabel.html', context)
