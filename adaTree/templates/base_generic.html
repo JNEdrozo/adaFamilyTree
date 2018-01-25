@@ -26,42 +26,53 @@
         </div>
 
         <!-- Sidebar Links -->
-        <ul class="components">
+        <ul class="components list-unstyled">
           <li><a href="#">Home</a></li>
           <!-- <li class="active"><a href="#">Family Filters</a></li> -->
-            <li><a href="/">Ada Students</a></li>
-            <li><a href="/adaTree/">Ada Students & Instructors</a></li>
-            <li><a href="/staffTree/">Ada Instructors</a></li>
-            <li><a href="/internships/">Ada Student Internships</a></li>
-            <li><a href="/capstoneTech/">Ada Student Capstone Tech</a></li>
-            <li>
-              <section id="night-mode-box">
-                <p>Night Mode</p>
-                <label class="switch">
-                  <input type="checkbox"></input>
-                  <span class="slider" id="night-option"></span>
-                </label>
-              </section>
-            </li>
-
-          <!-- <li>
-               <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Family Filters</a>
-               <ul class="collapse" id="homeSubmenu">
-                 <li><a href="/">Ada Students</a></li>
-                 <li><a href="/adaTree/">Ada Students & Instructors</a></li>
-                 <li><a href="/staffTree/">Ada Instructors</a></li>
-                 <li><a href="/internships/">Ada Student Internships</a></li>
-                 <li><a href="/capstoneTech/">Ada Student Capstone Tech</a></li>
-               </ul -->
-
-          <!-- Link with dropdown items -->
-          <!-- <li class="active">
-              <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="active">Settings</a>
-              <ul class="collapse" id="homeSubmenu2">
-                  <li><a href="#">Page</a></li>
-                  <li><a href="#">Page</a></li>
-                  <li><a href="#">Page</a></li>
-              </ul> -->
+          <li>
+              <a href="#studentSubmenu" data-toggle="collapse" aria-expanded="false">Students</a>
+              <ul class="collapse list-unstyled" id="studentSubmenu">
+                  <li><a href="/">Ada Students</a></li>
+                  <li><a href="#">Ada Students - Labels</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#studStaffSubmenu" data-toggle="collapse" aria-expanded="false">Students & Instructors</a>
+              <ul class="collapse list-unstyled" id="studStaffSubmenu">
+                  <li><a href="/adaTree/">Ada Students & Instructors</a></li>
+                  <li><a href="#">Ada Students & Instructors - Labels</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#staffSubmenu" data-toggle="collapse" aria-expanded="false">Instructional Staff</a>
+              <ul class="collapse list-unstyled" id="staffSubmenu">
+                  <li><a href="/adaTree/">Ada Instructors</a></li>
+                  <li><a href="#">Ada Instructors - Labels</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#internshipSubmenu" data-toggle="collapse" aria-expanded="false">Internship Network</a>
+              <ul class="collapse list-unstyled" id="internshipSubmenu">
+                  <li><a href="/internships/">Ada Student Internships</a></li>
+                  <li><a href="#">Ada Student Internships - Labels</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#capstoneSubmenu" data-toggle="collapse" aria-expanded="false">Capstone Technologies</a>
+              <ul class="collapse list-unstyled" id="capstoneSubmenu">
+                  <li><a href="/capstoneTech/">Ada Student Capstone Tech</a></li>
+                  <li><a href="#">Ada Student Capstone Tech - Labels</a></li>
+              </ul>
+          </li>
+          <li id="night-mode-start">
+            <section id="night-mode-box">
+              <p>Night Mode</p>
+              <label class="switch">
+                <input type="checkbox"></input>
+                <span class="slider" id="night-option"></span>
+              </label>
+            </section>
+          </li>
         </ul>
 
         <div class="sidebar-header">
