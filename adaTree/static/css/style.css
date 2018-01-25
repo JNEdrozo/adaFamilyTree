@@ -154,7 +154,7 @@ input:checked + .slider:before {
 }
 
 #base-container {
-  margin-top: 90px;
+  margin-top: 20vh;
   padding-left: 15px;
   padding-right: 15px;
   text-align: center;
@@ -280,7 +280,7 @@ footer {
   z-index: -1;
 }
 
-#footer-log{
+#footer-log {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -289,6 +289,17 @@ footer {
   background-color: #efefef;
   text-align: center;
   z-index: -1;
+}
+
+#footer-log a {
+  color: gray;
+  font-size: 1.2em;
+}
+
+#footer-log a:hover {
+  color: gray;
+  color: #FCA205;
+  font-size: 1.5em;
 }
 
 .footer-info {
