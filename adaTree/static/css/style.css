@@ -1,26 +1,31 @@
 @import "https://fonts.googleapis.com/css?family=Barrio";
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-/* GLOW */
-
+/* ---------------------------------------------------
+    GLOW
+----------------------------------------------------- */
 .glow {
   color: rgba(0,0,0,0.6);
   text-shadow: 2px 6px 10px rgba(0,0,0,0.1),
                    0px 2px 35px rgba(255,255,255,.7);
 }
 
-/* Scale on Hover with Transition */
+/* ---------------------------------------------------
+    Scale on Hover with Transition
+----------------------------------------------------- */
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
 
-/* BUTTON SWITCH */
 
+/* ---------------------------------------------------
+  SLIDER BUTTON SWITCH
+----------------------------------------------------- */
 .switch {
   position: relative;
   display: inline-block;
-  /* width: 60px; */
+  /* width: 60px; ORIG*/
+  /* height: 34px; ORIG*/
   width: 48px;
-  /* height: 34px; */
   height: 24px;
 }
 
@@ -160,7 +165,7 @@ section.log-in-again-links {
 /* ---------------------------------------------------
     MEMBER INFO
 ----------------------------------------------------- */
-
+/* FOR MOUSEOVER D3 OPTION */
 /* #member-info li {
  list-style: none;
  border: solid gray;
@@ -197,11 +202,19 @@ section.log-in-again-links {
   font-size: 2.4em;
 }
 
+.member-header a {
+  color: #999;
+}
+
+.member-header a:hover {
+  color: gray;
+}
+
 .member {
   border: 4px solid #ddd;
   border-radius: 5px;
-  /* background-color: #ddd; */
-  background-color: #E8E8EA;
+  /* background-color: #E8E8EA; */
+  background-color: #f5f5f5;
   opacity: .9;
   padding-left: 20px;
   padding-right: 20px;
@@ -219,7 +232,6 @@ section.log-in-again-links {
 
 .member-details li {
   font-weight: 500;
-
 }
 
 .member-close-btn {
