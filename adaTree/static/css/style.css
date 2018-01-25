@@ -316,8 +316,11 @@ footer {
   position: absolute;
   bottom: 0;
   left: 0;
-  margin-left: 115px;
+  margin-left: 75px;
+}
 
+.footer-info a:hover {
+  font-size: 1.08em;
 }
 
 /* ---------------------------------------------------
