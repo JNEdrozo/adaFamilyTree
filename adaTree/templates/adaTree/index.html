@@ -43,7 +43,7 @@
 
         <p>
           <strong>NOTE :   </strong>
-            Currently, node summaries (accessed by double-clicking a node) cannot be viewed on <em>mobile</em> devices; only node titles and labels.
+            Currently, node summaries (accessed by double-clicking a node) cannot be viewed on <em>mobile</em> devices. Mobile users are recommended to view trees with "Labels" from the menu.
         </p>
       </div>
 
@@ -254,47 +254,47 @@
 
     <div id="general-info">
       <div id="intro" class="col-md-12">
-        <h1 id="how-to">Overview</h1>
-            <p>
-              Use the side bar to navigate between different family tree options: "Students", "Students & Instructors", "Instructional Staff", "Internship Network", and "Capstone Technologies".
+        <h1 id="overview-h1">Overview</h1>
+            <p id="overview-text">
+              Use the collapsible sidebar menu to navigate between different family tree options: "Students", "Students & Instructors", "Instructional Staff", "Internship Network", and "Capstone Technologies".
             </p>
 
-          <h4 class="header-4-space">Family Tree Features</h4>
-            <ul>
-              <li>
-                NODE SUMMARIES
+          <h4 id="family-tree-features-h4">Family Tree Features</h4>
+            <ul id="family-tree-features">
+              <li class="how-to">
+                <h5 class="li-header-5">NODE SUMMARIES</h5>
                 <p>
                   Double-click on tree nodes to zoom in and read node information on a member, company, cohort, and capstone technology.
                 </p>
               </li>
-              <li>
-                NODE LABELS
+              <li class="how-to">
+                <h5 class="li-header-5">NODE LABELS</h5>
                 <P>
-                  Hover over nodes to display thier titles OR click the label filters in the side bar.
+                  Hover over nodes to display their titles, or select options with "Labels" from the sidebar menu.
                 </P>
               </li>
-              <li>
-                DRAGGABLE NODES
+              <li class="how-to">
+                <h5 class="li-header-5">DRAGGABLE NODES</h5>
                 <P>
                   Click and hold down on a node to move its position.
                 </P>
               </li>
-              <li>
-                RE-CENTERING
+              <li class="how-to">
+                <h5 class="li-header-5">RECENTER</h5>
                 <P>
-                  Click on any empty canvas space (outside of the node or tree) and drag the canvas to re-center your view.
+                  Click on any empty canvas space (outside of the node or tree) and drag the canvas to recenter your view.
                 </P>
               </li>
-              <li>
-                NIGHT MODE
+              <li class="how-to">
+                <h5 class="li-header-5">NIGHT MODE</h5>
                 <p>
-                  Switch allows you to toggle between light or dark displays.
+                  Use the Night Mode Switch to toggle between light (default) or dark displays.
                 </p>
               </li>
-              <li>
-                ZOOM & PAN
+              <li class="how-to">
+                <h5 class="li-header-5">ZOOM & PAN</h5>
                 <p>
-                  Scroll or use your touchpad or phone to zoom and resize your view of the visuals.
+                  Scroll or swipe to zoom and resize your view of the visuals.
                 </p>
               </li>
             </ul>
@@ -302,17 +302,17 @@
       </div>
 
       <div class="col-md-4 home-info">
-        <h2 id="mission">Mission</h2>
+        <h2>Mission</h2>
 
         <p>
           Welcome and thank you for using the Ada Family Tree! This web application aims to accomplish two main objectives:
         </p>
 
         <ul>
-          <li>
+          <li class="mission-item">
             Visually <strong>map the growth</strong> of the Ada social network
           </li>
-          <li>
+          <li class="mission-item">
             Help members of the Ada family <strong>connect</strong> and <strong>learn more</strong> about members of our Ada community
           </li>
         </ul>
@@ -327,10 +327,10 @@
       <div class="col-md-4 home-info">
         <h2 id="about">About</h2>
           <p>
-            Ada Family Tree was built out of a need to learn from our former Adie predecessors and general Ada community. As many of you know, Ada has a legacy wall of photos that documents its previous and current cohort of Ada students. For many of us, we've learned about former Adies from this "wall" of photos, in addition to meet-ups, occasional anecdotes, LinkedIn, and of course Google.
+            Ada has a growing legacy wall of photos that documents its previous and current cohort of Ada students. For many of us, we've learned about former Adies from this "wall" of photos, in addition to meet-ups, occasional anecdotes, LinkedIn, and of course Google. However, the wall comes with its limitations and limited real estate.
           </p>
           <p>
-            The Ada Family Tree capstone project attempts to expand on the merits of visualizing Ada's community to bridge connection gaps within Ada's ever-growing social network. This web uses PostgreSQL, Python, Django and Data-Driven-Documents (D3) to document the growth of the Ada community and encourage overall knowledge sharing.
+            The <a href="https://github.com/JNEdrozo/adaFamilyTree" id="about-link">Ada Family Tree capstone project</a> attempts to provide a digital platform to enhance how we connect and visualize the explosive growth of our Ada community. Using PostgreSQL, Python, Django and Data-Driven-Documents (D3), the Ada Family Tree can be used to map the expansion of Ada's ever-growing social network, make connections with other members of the Ada family, and encourage the flow of knowledge sharing.
           </p>
       </div>
 
@@ -338,7 +338,7 @@
 
         <h2 id="privacy">Privacy</h2>
           <p>
-            To respect privacy concerns, currently only Ada staff and <em>approved</em> users (e.g. Ada Admin Staff and developers of this tool) of the Ada community may view or edit the family tree. Until further notice, Ada Staff may share the family tree with their class or students on a need-to-know-basis or when valid reason is warranted.
+            To respect privacy concerns, currently only Ada staff and <em>approved</em> users (e.g. Ada Admin Staff, developers, and test users of this tool) may view or edit the family tree, until further notice. Ada staff may share the family tree with their students on a need-to-know-basis or, where valid reasons apply.
           </p>
 
 
@@ -353,6 +353,9 @@
     </div>
 
   </body>
+  <footer id="footer-log">
+    <h5><a href="https://github.com/JNEdrozo/adaFamilyTree" class="grow">&copy; JNEdrozo 2018</a></h5>
+  </footer>
 </html>
 
 {% endblock %}

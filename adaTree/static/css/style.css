@@ -22,7 +22,13 @@
 .content-divider {
   height: 1px;
   border-bottom: 1px dashed gray;
-  margin: 140px 0px;
+  margin-top: 149px;
+  margin-bottom: 130px;
+}
+
+#about-link {
+  color: gray;
+  font-weight: 400;
 }
 
 #tutorial {
@@ -61,14 +67,53 @@
   text-align: justify;
 }
 
-#family-tree-features {
-  margin-top: 30px;
-}
-
 .home-info {
-  margin-bottom: 60px;
+  margin-bottom: 57px;
 }
 
+#overview-text {
+  font-size: 1.5em;
+  padding: 15px 0px;
+}
+
+#family-tree-features-h4 {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  font-size: 1.6em;
+}
+
+.li-header-5 {
+  font-size: 1.2em;
+  /* margin-bottom: -2px; */
+}
+
+#family-tree-features {
+  text-align: left;
+  letter-spacing: -0.1px;
+  line-height: 50%;
+}
+
+#family-tree-features li {
+  margin:0 0 20px 0;
+}
+
+.how-to {
+  font-size: 1.1em;
+}
+
+
+#overview-h1 {
+  font-size: 3em;
+}
+
+#overview-h1::first-letter {
+  font-size: 1.27em;
+}
+
+.mission-item {
+  font-size: 1.03em;
+  margin:0 0 10px 0;
+}
 /* ---------------------------------------------------
     GLOW
 ----------------------------------------------------- */
