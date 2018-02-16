@@ -154,11 +154,11 @@
                   `)
                 d3.select(".member").classed("hidden", false);
             }
-            else if (d.type =="program") {
+            else if (d.type =="adaStaff") {
               d3.select("#info-test")
                 .html(`
                   <section class="member-header">
-                    <h2>Program: ${d.full_name}</h2>
+                    <h2>Cluster: ${d.full_name}</h2>
                   </section>
                   `)
                 d3.select(".member").classed("hidden", false);
@@ -231,6 +231,9 @@
           return "#999BEA";
         }
         else if (d.type =="program") {
+          return "#83F1F0";
+        }
+        else if (d.type =="adaStaff") {
           return "#83F1F0";
         }
         else {

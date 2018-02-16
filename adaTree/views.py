@@ -32,7 +32,7 @@ def index(request):
     instructors = Instructor.objects.all()
 
     # nodes = [{"id": "Ada Developers Academy", "full_name": "Ada Developers Academy", "type": 'program',}]
-    nodes = [{"id": "Ada Staff", "full_name": "Ada Staff", "type": 'group',}]
+    nodes = [{"id": "Ada Staff", "full_name": "Ada Instructional Staff", "type": 'adaStaff',}]
     links = []
 
     for profile in profiles:
