@@ -407,7 +407,7 @@ footer {
   z-index: -1;
 }
 
-#footer-log {
+#footer-log, #footer-home {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -415,7 +415,7 @@ footer {
   padding: .01rem;
   background-color: #efefef;
   text-align: center;
-  z-index: -1;
+  z-index: 1;
 }
 
 #footer-log a {
@@ -427,6 +427,16 @@ footer {
   /* color: gray; */
   color: #FCA205;
   font-size: 1.5em;
+}
+
+#footer-home a {
+  color: #efefef;
+  font-size: 1.5em;
+}
+
+#footer-home a:hover {
+  /* color: gray; */
+  color: gray;
 }
 
 .footer-info {
@@ -498,6 +508,7 @@ a, a:hover, a:focus {
   /* transition: all 0.3s; */
   transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
   transform-origin: center left; /* Set the transformed position of sidebar to center left side. */
+  z-index: 2
 }
 
 #sidebar.active {
