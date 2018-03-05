@@ -108,7 +108,7 @@
       var simulation = d3.forceSimulation(studentData.nodes)
           .force("link", d3.forceLink().id(function(d) { return d.id; }))
           .force("charge", d3.forceManyBody())
-          .force("center", d3.forceCenter(window.innerWidth/7, window.innerHeight/5));
+          .force("center", d3.forceCenter(window.innerWidth/4.7, window.innerHeight/4));
 
       //add encompassing group for the zoom
       var container = svg.append("g")
