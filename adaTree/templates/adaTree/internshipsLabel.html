@@ -35,6 +35,14 @@
                  2px 12px 35px rgba(255,255,255,0.8);
   }
 
+  .svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    vertical-align: middle;
+    overflow: hidden;
+  }
+
   </style>
 
   <body>
@@ -46,8 +54,11 @@
         <p><span id="info-test">100</span></p>
       </div>
 
-      <div class="d3-visual">
+      <!-- <div class="d3-visual">
         <svg width="1900" height="700"></svg>
+      </div> -->
+      <div class="d3-visual svg-container">
+        <svg></svg>
       </div>
     </div>
 
@@ -61,12 +72,18 @@
           width = +svg.attr("width"),
           height = +svg.attr("height");
 
+      //make svg width and height responsive to different window sizes
+      svg
+       .attr("preserveAspectRatio", "xMinYMin meet")
+       .attr("viewBox", "0 0 600 2000")
+
       var color = d3.scaleOrdinal(d3.schemeCategory20);
 
       var simulation = d3.forceSimulation(studentData.nodes)
           .force("link", d3.forceLink().id(function(d) { return d.id; }))
           .force("charge", d3.forceManyBody().strength(-2500).distanceMax(800).distanceMin(80))
-          .force("center", d3.forceCenter(width / 1, height / 2.2));
+          // .force("center", d3.forceCenter(width / 1, height / 2.2));
+          .force("center", d3.forceCenter(window.innerWidth/3.8, window.innerHeight/2.7));
 
       //add encompassing group for the zoom
       var container = svg.append("g")
